@@ -5,6 +5,11 @@ Petit bot Discord pour avertir de :
 
 ---
 
+### Installer les dépendances
+`pip install -r requirements.txt`
+
+---
+
 Les fichiers `oasis.py` et `tesla.py` définissent respectivement les fonctions :
 - `getGrades()`
 - `getInternships()`, `getInternshipInfos()`
