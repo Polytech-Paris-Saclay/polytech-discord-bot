@@ -1,4 +1,5 @@
 import requests
+from pprint import pprint
 
 def getInternships():  # sourcery skip: inline-immediately-returned-variable
     url = "https://www.tesla.com/cua-api/apps/careers/state"
@@ -27,3 +28,7 @@ def getInternships():  # sourcery skip: inline-immediately-returned-variable
 def getInternshipInfos(id):
     return requests.get(
         f'https://www.tesla.com/cua-api/careers/job/{id}').json()
+
+if __name__ == '__main__':
+    for internship in getInternships():
+        pprint(getInternshipInfos(internship['id']))

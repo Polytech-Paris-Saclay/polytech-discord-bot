@@ -1,0 +1,7 @@
+disnake
+markdownify
+python-dotenv
+requests
+bs4
+html
+pprint
