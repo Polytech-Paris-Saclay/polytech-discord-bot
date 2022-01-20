@@ -14,7 +14,9 @@ from tesla import getInternships, getInternshipInfos
 
 
 load_dotenv()
-TOKEN = os.getenv('TOKEN')
+# TOKEN = os.getenv('TOKEN')
+TOKEN = os.environ['TOKEN']
+
 
 bot = commands.Bot()
 

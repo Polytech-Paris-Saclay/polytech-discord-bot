@@ -7,8 +7,10 @@ from datetime import datetime
 from pprint import pprint
 
 load_dotenv()
-LOGIN = os.getenv('LOGIN')
-PASSWORD = os.getenv('PASSWORD')
+# LOGIN = os.getenv('LOGIN')
+# PASSWORD = os.getenv('PASSWORD')
+LOGIN = os.environ('LOGIN')
+PASSWORD = os.environ('PASSWORD')
 
 months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
