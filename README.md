@@ -1,5 +1,5 @@
-# tesla-internship-and-oasis-grades-scrapper
-Petit bot Discord pour avertir de :
+# Polytech Bot (Discord)
+Bot Discord du serveur PEIP1 Polytech Paris-Saclay, pour avertir de :
 - nouvelles offres de stage sur le site de Tesla
 - nouvelles notes sur Oasis (Polytech Paris-Saclay)
 
