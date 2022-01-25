@@ -72,11 +72,14 @@ async def grades():
     channel = find(lambda c: 'nouvelles-notes' in c.name, guild.text_channels)
 
     messages = await channel.history(limit=None).flatten()
+
     
+    ### New Grades
     previousGrades = [
         message.embeds[0].footer.text
         for message in messages
         if len(message.embeds)
+        and message.embeds[0].title.startswith('Nouvelle note')
     ]
     
     newGrades = [
@@ -84,8 +87,7 @@ async def grades():
         if not f"{grade['subject-id']} - {grade['name']}" in previousGrades
         and grade['grade'] is not None
     ]
-    newGrades.sort(key=lambda g: g['date'])
-
+    
     if len(newGrades):
         await channel.send('||@everyone||')
     
@@ -104,9 +106,38 @@ async def grades():
 
         await channel.send(embed=embed)
         print(f"{grade['subject-id']} - {grade['name']}")
+    
+    
+    ### Pending grades
+    previousPendingGrades = [
+        message.embeds[0].footer.text
+        for message in messages
+        if len(message.embeds)
+        and 'bientôt' in message.embeds[0].title.lower()
+    ]
+    
+    newPendingGrades = [
+        grade for grade in grades
+        if not f"{grade['subject-id']} - {grade['name']}" in previousPendingGrades
+        and grade['grade'] is None
+    ]
+
+    for grade in newPendingGrades:
+        embed = disnake.Embed(
+            title=f"*Note bientôt disponible en {grade['subject']}*  👀",
+            color=0x00A8E8,
+            url='https://oasis.polytech.universite-paris-saclay.fr/',
+            description=grade['name'],
+            timestamp=grade['date'],
+        )
+        embed.set_footer(text = f"{grade['subject-id']} - {grade['name']}")
+
+        await channel.send(embed=embed)
+        print(f"[ SOON ] {grade['subject-id']} - {grade['name']}")
         
 @bot.event
 async def on_ready():
+    await bot.change_presence(activity=disnake.Game(name='attendre de nouvelles notes ! 🙂'))
     tesla.start()
     grades.start()
 
