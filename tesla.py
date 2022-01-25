@@ -12,7 +12,7 @@ def getInternships():  # sourcery skip: inline-immediately-returned-variable
     # types = r['lookup']['types']
 
     locationsFR = [element for sublist in [e for e in [e for e in r['geo'] if e['id'] == "3"][0]
-                                           ['countries'] if e['id'] == "FR"][0]['cities'].values() for element in sublist]
+                    ['countries'] if e['id'] == "FR"][0]['cities'].values() for element in sublist]
 
     listings = r['listings']
 

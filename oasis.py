@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from html.parser import HTMLParser
 from dotenv import load_dotenv
 import os
 from datetime import datetime
@@ -37,13 +36,23 @@ def getGrades():
         courses = []
         for course_html in courses_html:
             course = {}
+            
             course['subject-id'] = course_html.find_all('td')[0].find('div').text.splitlines()[1].strip()[:-2]
             course['subject'] = course_html.find_all('td')[0].find('div').text.splitlines()[3].strip()
             course['name'] = course_html.find_all('td')[1].text.strip()
-            course['grade'] = course_html.find_all('td')[3].text.strip()
+            
+            grade_str = course_html.find_all('td')[3].text.strip()
+            try:
+                course['grade'] = float(grade_str.replace(',', '.'))
+            except ValueError:
+                course['grade'] = None
+                
             course['date-str'] = course_html.find_all('td')[2].text.strip()
+            
+            # Conversion to python datetime object
             date_list = course['date-str'].split(' ')
             course['date'] = datetime(int(date_list[2]), months.index(date_list[1]) + 1, int(date_list[0]))
+            
             courses.append(course)
         
         return courses

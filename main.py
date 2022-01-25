@@ -82,6 +82,7 @@ async def grades():
     newGrades = [
         grade for grade in grades
         if not f"{grade['subject-id']} - {grade['name']}" in previousGrades
+        and grade['grade'] is not None
     ]
     newGrades.sort(key=lambda g: g['date'])
 
