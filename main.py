@@ -3,7 +3,7 @@ from disnake.ext import commands
 from disnake.ext import tasks
 from disnake.utils import find
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import ics
 from markdownify import markdownify
 from dotenv import load_dotenv
@@ -95,7 +95,7 @@ async def grades():
     
     for grade in newGrades:
         embed = disnake.Embed(
-            title=f"Nouvelle note en {grade['subject']} !",
+            title=f"Nouvelle note en **{grade['subject']}** !",
             color=0x00A8E8,
             url='https://oasis.polytech.universite-paris-saclay.fr/',
             description=grade['name'],
@@ -126,7 +126,7 @@ async def grades():
 
     for grade in newPendingGrades:
         embed = disnake.Embed(
-            title=f"*Note bientôt disponible en {grade['subject']}*  👀",
+            title=f"*Une note devrait bientôt être disponible en **{grade['subject']}***  👀",
             color=0x00A8E8,
             url='https://oasis.polytech.universite-paris-saclay.fr/',
             description=grade['name'],
@@ -136,6 +136,47 @@ async def grades():
 
         await channel.send(embed=embed)
         print(f"[ SOON ] {grade['subject-id']} - {grade['name']}")
+
+
+@tasks.loop(minutes=5)
+async def nextBuses():
+    '''Envoie les horaires des prochains bus sur Discord lorsque je finis les cours'''
+    nextBuses = getNextBuses()
+    
+    r = requests.get(AGENDA_URL).text
+    agenda = ics.Calendar(r)
+    todayClasses = [c for c in agenda.events if c.begin.date() == datetime.now().date()]
+    todayClasses.sort(key=lambda c: c.begin)
+    lastClass = todayClasses[-1]
+    
+    if (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=5):
+        ### Polytech
+        guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
+        channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
+        
+        embed = disnake.Embed()
+        embed.title = "Prochains bus"
+        
+        for bus in nextBuses:
+            if bus['direction'] == 'backward':
+                delay = timedelta(seconds=bus['delay'])
+                time = datetime.now() + delay
+                
+                ligne = bus['line']
+                destination = stations[bus['destination']] if bus['destination'] in stations else ''
+                embed.add_field(
+                    name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
+                    value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
+                    inline = False
+                )
+        
+        if not len(nextBuses):
+            embed.description = 'Aucun bus prévu dans la prochaine heure.'
+                
+        await channel.send(
+            '<@231806011269185536>',
+            embed=embed
+        )
 
 
 @tasks.loop(seconds=30)
@@ -157,43 +198,6 @@ async def bot_presence():
         await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=text[1]))
     elif text[0] == "Écoute":
         await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name=text[1]))
-
-
-@tasks.loop(minutes=5)
-async def nextBuses():
-    nextBuses = getNextBuses()
-    
-    r = requests.get(AGENDA_URL).text
-    agenda = ics.Calendar(r)
-    todayClasses = [c for c in agenda.events if c.begin.date() == datetime.now().date()]
-    todayClasses.sort(key=lambda c: c.begin)
-    lastClass = todayClasses[-1]
-    
-    if (lastClass.end - datetime.now()) <= timedelta(minutes=5):
-        ### Polytech
-        guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
-        channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
-        
-        embed = disnake.Embed()
-        embed.title = "Prochains bus"
-        
-        for bus in nextBuses:
-            if bus['direction'] == 'backward':
-                delay = timedelta(seconds=bus['delay'])
-                time = datetime.now() + delay
-                
-                ligne = bus['line']
-                destination = stations[bus['destination']] if bus['destination'] in stations else ''
-                embed.add_field(
-                    name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
-                    value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
-                    inline = False
-                )
-                
-        await channel.send(
-            '<@231806011269185536>',
-            embed=embed
-        )
 
 
 @bot.event
