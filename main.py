@@ -3,23 +3,25 @@ from disnake.ext import commands
 from disnake.ext import tasks
 from disnake.utils import find
 
-from datetime import datetime
+from datetime import datetime, timedelta
+import ics
 from markdownify import markdownify
 from dotenv import load_dotenv
 import os
+import requests
 import random
 
 from oasis import getGrades
 from tesla import getInternships, getInternshipInfos
+from bus import getNextBuses, stations
 
 
 load_dotenv()
 # TOKEN = os.getenv('TOKEN')
 TOKEN = os.environ['TOKEN']
-
+AGENDA_URL = os.environ['AGENDA_URL']
 
 bot = commands.Bot()
-
 
 @tasks.loop(minutes=30)
 async def tesla():
@@ -156,10 +158,50 @@ async def bot_presence():
     elif text[0] == "Écoute":
         await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name=text[1]))
 
+
+@tasks.loop(minutes=5)
+async def nextBuses():
+    nextBuses = getNextBuses()
+    
+    r = requests.get(AGENDA_URL).text
+    agenda = ics.Calendar(r)
+    todayClasses = [c for c in agenda.events if c.begin.date() == datetime.now().date()]
+    todayClasses.sort(key=lambda c: c.begin)
+    lastClass = todayClasses[-1]
+    
+    if (lastClass.end - datetime.now()) <= timedelta(minutes=5):
+        ### Polytech
+        guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
+        channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
+        
+        embed = disnake.Embed()
+        embed.title = "Prochains bus"
+        
+        for bus in nextBuses:
+            if bus['direction'] == 'backward':
+                delay = timedelta(seconds=bus['delay'])
+                time = datetime.now() + delay
+                
+                ligne = bus['line']
+                destination = stations[bus['destination']] if bus['destination'] in stations else ''
+                embed.add_field(
+                    name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
+                    value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
+                    inline = False
+                )
+                
+        await channel.send(
+            '<@231806011269185536>',
+            embed=embed
+        )
+
+
 @bot.event
 async def on_ready():
+    print('Le bot est prêt !')
     bot_presence.start()
     tesla.start()
     grades.start()
+    nextBuses.start()
 
 bot.run(TOKEN)

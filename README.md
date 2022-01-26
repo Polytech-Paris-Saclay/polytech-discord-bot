@@ -2,6 +2,7 @@
 Bot Discord du serveur PEIP1 Polytech Paris-Saclay, pour avertir de :
 - nouvelles offres de stage sur le site de Tesla
 - nouvelles notes sur Oasis (Polytech Paris-Saclay)
+- prochains bus à la fin d'une journée de cours
 
 ---
 
@@ -26,6 +27,9 @@ PASSWORD = MotDePasse
 
 # Discord bot
 TOKEN = token-bot-discord
+
+# Agenda url (.cal)
+AGENDA_URL = https://www.your-school.edu/agenda.ical
 ```
 
 [Comment créer un bot Discord ?](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
