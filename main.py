@@ -136,7 +136,7 @@ async def grades():
         print(f"[ SOON ] {grade['subject-id']} - {grade['name']}")
 
 
-@tasks.loop(minutes=10)
+@tasks.loop(seconds=30)
 async def bot_presence():
     '''Shows "Playing {message}" on Discord'''
     texts = [
@@ -158,7 +158,7 @@ async def bot_presence():
 
 @bot.event
 async def on_ready():
-    bot_pr.start()
+    bot_presence.start()
     tesla.start()
     grades.start()
 
