@@ -149,7 +149,7 @@ async def nextBuses():
     todayClasses.sort(key=lambda c: c.begin)
     lastClass = todayClasses[-1]
     
-    if (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=5):
+    if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=5):
         ### Polytech
         guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
         channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
