@@ -1,13 +1,13 @@
-from datetime import datetime
-from markdownify import markdownify
-
 import disnake
 from disnake.ext import commands
 from disnake.ext import tasks
 from disnake.utils import find
 
+from datetime import datetime
+from markdownify import markdownify
 from dotenv import load_dotenv
 import os
+import random
 
 from oasis import getGrades
 from tesla import getInternships, getInternshipInfos
@@ -134,10 +134,31 @@ async def grades():
 
         await channel.send(embed=embed)
         print(f"[ SOON ] {grade['subject-id']} - {grade['name']}")
-        
+
+
+@tasks.loop(minutes=10)
+async def bot_presence():
+    '''Shows "Playing {message}" on Discord'''
+    texts = [
+        ("Regarde", "vos notes 👀"),
+        ("Regarde", "les polys de cours 📖"),
+        ("Regarde", "des stages pour cet été 🧑‍💼"),
+        ("Regarde", "ta moyenne générale 📉"),
+        ("Joue à", "réviser 📚"),
+        ("Écoute", "le cours 🧑‍🏫"),
+    ]
+    text = random.choice(texts)
+    
+    if text[0] == "Joue à":
+        await bot.change_presence(activity=disnake.Game(name=text[1]))
+    elif text[0] == "Regarde":
+        await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=text[1]))
+    elif text[0] == "Écoute":
+        await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name=text[1]))
+
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=disnake.Game(name='attendre de nouvelles notes ! 🙂'))
+    bot_pr.start()
     tesla.start()
     grades.start()
 
