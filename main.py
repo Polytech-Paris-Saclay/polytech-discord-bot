@@ -65,7 +65,7 @@ async def tesla():
         print(infosListing['title'])
 
 
-@tasks.loop(minutes=10)
+@tasks.loop(hours=3)
 async def grades():
     grades = getGrades()
 
@@ -138,7 +138,7 @@ async def grades():
         print(f"[ SOON ] {grade['subject-id']} - {grade['name']}")
 
 
-@tasks.loop(minutes=5)
+@tasks.loop(minutes=10)
 async def nextBuses():
     '''Envoie les horaires des prochains bus sur Discord lorsque je finis les cours'''
     nextBuses = getNextBuses()
@@ -149,33 +149,35 @@ async def nextBuses():
     todayClasses.sort(key=lambda c: c.begin)
     lastClass = todayClasses[-1]
     
-    if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=5):
-        ### Polytech
-        guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
-        channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
+    ### Polytech
+    guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
+    channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
+    
+    embed = disnake.Embed()
+    embed.title = "Prochains bus"
+    
+    for bus in nextBuses:
+        if bus['direction'] == 'backward':
+            delay = timedelta(seconds=bus['delay'])
+            time = datetime.now() + delay
+            
+            ligne = bus['line']
+            destination = stations[bus['destination']] if bus['destination'] in stations else ''
+            embed.add_field(
+                name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
+                value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
+                inline = False
+            )
         
-        embed = disnake.Embed()
-        embed.title = "Prochains bus"
+    if not len(nextBuses):
+        embed.description = 'Aucun bus prévu dans la prochaine heure.'
         
-        for bus in nextBuses:
-            if bus['direction'] == 'backward':
-                delay = timedelta(seconds=bus['delay'])
-                time = datetime.now() + delay
+    await channel.send(embed=embed)
                 
-                ligne = bus['line']
-                destination = stations[bus['destination']] if bus['destination'] in stations else ''
-                embed.add_field(
-                    name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
-                    value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
-                    inline = False
-                )
-        
-        if not len(nextBuses):
-            embed.description = 'Aucun bus prévu dans la prochaine heure.'
-                
-        await channel.send(
+    if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=10):
+        message = await channel.send(
             '<@231806011269185536>',
-            embed=embed
+            delete_after=3600
         )
 
 
