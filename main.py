@@ -153,28 +153,29 @@ async def nextBuses():
     guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
     channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
     
-    if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=10):
-        embed = disnake.Embed()
-        embed.title = "Prochains bus"
+    embed = disnake.Embed()
+    embed.title = "Prochains bus"
+    
+    for bus in nextBuses:
+        if bus['direction'] == 'backward':
+            delay = timedelta(seconds=bus['delay'])
+            time = datetime.now() + delay
+            
+            ligne = bus['line']
+            destination = stations[bus['destination']] if bus['destination'] in stations else ''
+            embed.add_field(
+                name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
+                value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
+                inline = False
+            )
         
-        for bus in nextBuses:
-            if bus['direction'] == 'backward':
-                delay = timedelta(seconds=bus['delay'])
-                time = datetime.now() + delay
-                
-                ligne = bus['line']
-                destination = stations[bus['destination']] if bus['destination'] in stations else ''
-                embed.add_field(
-                    name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
-                    value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
-                    inline = False
-                )
-            
-        if not len(nextBuses):
-            embed.description = 'Aucun bus prévu dans la prochaine heure.'
-            
-        await channel.send(embed=embed)
+    if not len(nextBuses):
+        embed.description = 'Aucun bus prévu dans la prochaine heure.'
+    
+    message = await channel.history(limit=None).flatten()[0]
+    await message.edit(embed=embed)
                     
+    if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=10):
         message = await channel.send(
             '<@231806011269185536>',
             delete_after=3600
