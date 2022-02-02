@@ -153,28 +153,28 @@ async def nextBuses():
     guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
     channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
     
-    embed = disnake.Embed()
-    embed.title = "Prochains bus"
-    
-    for bus in nextBuses:
-        if bus['direction'] == 'backward':
-            delay = timedelta(seconds=bus['delay'])
-            time = datetime.now() + delay
-            
-            ligne = bus['line']
-            destination = stations[bus['destination']] if bus['destination'] in stations else ''
-            embed.add_field(
-                name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
-                value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
-                inline = False
-            )
-        
-    if not len(nextBuses):
-        embed.description = 'Aucun bus prévu dans la prochaine heure.'
-        
-    await channel.send(embed=embed)
-                
     if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=10):
+        embed = disnake.Embed()
+        embed.title = "Prochains bus"
+        
+        for bus in nextBuses:
+            if bus['direction'] == 'backward':
+                delay = timedelta(seconds=bus['delay'])
+                time = datetime.now() + delay
+                
+                ligne = bus['line']
+                destination = stations[bus['destination']] if bus['destination'] in stations else ''
+                embed.add_field(
+                    name = f"{ligne} - {destination} {'🦽' if bus['wheelchair'] else ''}",
+                    value = f"<t:{int(time.timestamp())}:t> (<t:{int(time.timestamp())}:R>)",
+                    inline = False
+                )
+            
+        if not len(nextBuses):
+            embed.description = 'Aucun bus prévu dans la prochaine heure.'
+            
+        await channel.send(embed=embed)
+                    
         message = await channel.send(
             '<@231806011269185536>',
             delete_after=3600
