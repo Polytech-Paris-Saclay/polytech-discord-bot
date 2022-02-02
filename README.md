@@ -11,9 +11,10 @@ Bot Discord du serveur PEIP1 Polytech Paris-Saclay, pour avertir de :
 
 ---
 
-Les fichiers `oasis.py` et `tesla.py` définissent respectivement les fonctions :
+Les fichiers `oasis.py`, `tesla.py` et `bus.py` définissent respectivement les fonctions :
 - `getGrades()`
 - `getInternships()`, `getInternshipInfos()`
+- `getNextBusses()`
 
 et sont indépendants (ils peuvent être appelés seuls sans passer par `main.py`)
 
