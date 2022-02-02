@@ -172,8 +172,11 @@ async def nextBuses():
     if not len(nextBuses):
         embed.description = 'Aucun bus prévu dans la prochaine heure.'
     
-    message = await channel.history(limit=None).flatten()[0]
-    await message.edit(embed=embed)
+    messages = await channel.history(limit=None).flatten()
+    if len(messages):
+        await messages[0].edit(embed=embed)
+    else:
+        await channel.send(embed=embed)
                     
     if datetime.now(timezone.utc) <= lastClass.end and (lastClass.end - datetime.now(timezone.utc)) <= timedelta(minutes=10):
         message = await channel.send(
