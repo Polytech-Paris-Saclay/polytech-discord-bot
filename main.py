@@ -1,7 +1,7 @@
-import disnake
-from disnake.ext import commands
-from disnake.ext import tasks
-from disnake.utils import find
+import discord
+from discord.ext import commands
+from discord.ext import tasks
+from discord.utils import find
 
 from datetime import datetime, timedelta, timezone
 import ics
@@ -21,7 +21,8 @@ load_dotenv()
 TOKEN = os.environ['TOKEN']
 AGENDA_URL = os.environ['AGENDA_URL']
 
-bot = commands.Bot()
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @tasks.loop(minutes=30)
 async def tesla():
@@ -46,7 +47,7 @@ async def tesla():
     
     for listing in newListings:
         infosListing = getInternshipInfos(listing['id'])
-        embed = disnake.Embed(
+        embed = discord.Embed(
             title = f"Nouveau stage Tesla : {infosListing['title']}",
             color = 0xC90000,
             url = f'https://www.tesla.com/fr_FR/careers/search/job/{listing["id"]}',
@@ -94,7 +95,7 @@ async def grades():
         await channel.send('||@everyone||')
     
     for grade in newGrades:
-        embed = disnake.Embed(
+        embed = discord.Embed(
             title=f"Nouvelle note en **{grade['subject']}** !",
             color=0x00A8E8,
             url='https://oasis.polytech.universite-paris-saclay.fr/',
@@ -125,7 +126,7 @@ async def grades():
     ]
 
     for grade in newPendingGrades:
-        embed = disnake.Embed(
+        embed = discord.Embed(
             title=f"*Une note devrait bientôt être disponible en **{grade['subject']}***  👀",
             color=0x00A8E8,
             url='https://oasis.polytech.universite-paris-saclay.fr/',
@@ -153,7 +154,7 @@ async def nextBuses():
     guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
     channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
     
-    embed = disnake.Embed()
+    embed = discord.Embed()
     embed.title = "Prochains bus"
     
     for bus in nextBuses:
@@ -199,11 +200,11 @@ async def bot_presence():
     text = random.choice(texts)
     
     if text[0] == "Joue à":
-        await bot.change_presence(activity=disnake.Game(name=text[1]))
+        await bot.change_presence(activity=discord.Game(name=text[1]))
     elif text[0] == "Regarde":
-        await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=text[1]))
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=text[1]))
     elif text[0] == "Écoute":
-        await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name=text[1]))
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=text[1]))
 
 
 @bot.event

@@ -5,13 +5,11 @@ import os
 from datetime import datetime
 from pprint import pprint
 
+months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+
 load_dotenv()
-# LOGIN = os.getenv('LOGIN')
-# PASSWORD = os.getenv('PASSWORD')
 LOGIN = os.environ['LOGIN']
 PASSWORD = os.environ['PASSWORD']
-
-months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
 def getGrades():
     with requests.Session() as s:
@@ -37,25 +35,29 @@ def getGrades():
         for course_html in courses_html:
             course = {}
             
+            # Subject and name of the grade
             course['subject-id'] = course_html.find_all('td')[0].find('div').text.splitlines()[1].strip()[:-2]
             course['subject'] = course_html.find_all('td')[0].find('div').text.splitlines()[3].strip()
             course['name'] = course_html.find_all('td')[1].text.strip()
             
+            # Grade
             grade_str = course_html.find_all('td')[3].text.strip()
             try:
                 course['grade'] = float(grade_str.replace(',', '.'))
             except ValueError:
                 course['grade'] = None
                 
+            # Date and conversion to python datetime object
             course['date-str'] = course_html.find_all('td')[2].text.strip()
-            
-            # Conversion to python datetime object
             date_list = course['date-str'].split(' ')
             course['date'] = datetime(int(date_list[2]), months.index(date_list[1]) + 1, int(date_list[0]))
+            
+            # Ranking
+            
             
             courses.append(course)
         
         return courses
     
 if __name__ == '__main__':
-    pprint(getGrades())
+    pprint(sorted(getGrades(), key=lambda x: x['date']))

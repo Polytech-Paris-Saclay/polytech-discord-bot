@@ -1,4 +1,4 @@
-disnake
+discord.py
 markdownify
 python-dotenv
 requests
