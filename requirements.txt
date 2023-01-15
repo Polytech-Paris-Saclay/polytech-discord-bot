@@ -2,7 +2,6 @@ discord.py
 markdownify
 python-dotenv
 requests
-bs4
-html
+beautifulsoup4
 pprintpp
 ics

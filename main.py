@@ -32,11 +32,9 @@ async def tesla():
     guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
     channel = find(lambda c: 'tesla' in c.name, guild.text_channels)
     
-    messages = await channel.history(limit=None).flatten()
-    
     previousListings = [
         int(message.embeds[0].footer.text)
-        for message in messages
+        async for message in channel.history(limit=None)
         if len(message.embeds)
     ]
     
@@ -57,7 +55,7 @@ async def tesla():
             ),
             timestamp = datetime.now()
         )
-        embed.set_thumbnail('https://www.tesla.com/themes/custom/tesla_frontend/assets/favicons/favicon-196x196.png')
+        embed.set_thumbnail(url='https://www.tesla.com/themes/custom/tesla_frontend/assets/favicons/favicon-196x196.png')
         embed.set_footer(text=listing['id'])
         embed.add_field(name ='Localisation', value=infosListing['location'], inline=False)
         embed.add_field(name ='Département', value=infosListing['department'], inline=False)
@@ -73,14 +71,11 @@ async def grades():
     ### Polytech
     guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
     channel = find(lambda c: 'nouvelles-notes' in c.name, guild.text_channels)
-
-    messages = await channel.history(limit=None).flatten()
-
     
     ### New Grades
     previousGrades = [
         message.embeds[0].footer.text
-        for message in messages
+        async for message in channel.history(limit=None)
         if len(message.embeds)
         and message.embeds[0].title.startswith('Nouvelle note')
     ]
@@ -104,7 +99,7 @@ async def grades():
         )
 
         oasis_icon = 'https://oasis.polytech.universite-paris-saclay.fr/prod/bo/picture/favicon/polytech_paris_oasis/favicon-194x194.png'
-        embed.set_thumbnail(oasis_icon)
+        embed.set_thumbnail(url=oasis_icon)
         embed.set_footer(text = f"{grade['subject-id']} - {grade['name']}")
 
         await channel.send(embed=embed)
@@ -114,7 +109,7 @@ async def grades():
     ### Pending grades
     previousPendingGrades = [
         message.embeds[0].footer.text
-        for message in messages
+        async for message in channel.history(limit=None)
         if len(message.embeds)
         and 'bientôt' in message.embeds[0].title.lower()
     ]
@@ -213,6 +208,6 @@ async def on_ready():
     bot_presence.start()
     tesla.start()
     grades.start()
-    nextBuses.start()
+    # nextBuses.start()
 
 bot.run(TOKEN)
