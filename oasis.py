@@ -83,7 +83,7 @@ def getSubjects():
         year = [elem for elem in header_year_info if elem.startswith('20')]
         
         first_semester = int(header_year_info[header_year_info.index('semestre\n') - 1][0])
-        second_semster = int(header_year_info[header_year_info.index('semestre\n') - 1][0]) + 1
+        second_semester = int(header_year_info[header_year_info.index('semestre\n') - 1][0]) + 1
 
         list_UE = [
             ue_html.find_all('td')
@@ -123,7 +123,7 @@ def getSubjects():
                     temp.append(list_UE[i][j-3])
             subjects_second_semester.append(temp)
 
-    return year, first_semester, second_semster, subjects_first_semester, subjects_second_semester
+    return year, first_semester, second_semester, subjects_first_semester, subjects_second_semester
     
 if __name__ == '__main__':
     pprint(sorted(getGrades(), key=lambda x: x['date']))
