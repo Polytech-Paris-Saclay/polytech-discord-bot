@@ -46,7 +46,7 @@ def formCategoriesPeip2(semester_index,first_semester,second_semester,subjects_f
 
 
 
-''' Check in console if the subjects are well extracted '''
+''' Check in console if the subjects are well extracted, and ask for the semester '''
 year, first_semester, second_semester, subjects_first_semester, subjects_second_semester = getSubjects()
 
 print('Année :',year,'\n\n')
@@ -70,37 +70,36 @@ print(tronc_commun)
 print(options)
 print(parcours)
 
-''' Tests '''
+''' Discord bot '''
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-@bot.event
-async def on_ready():
-    print('Le bot est prêt !')
+@bot.command(name='test')
+async def semesterUpdatePEIP2(ctx):
+    if semester_index != first_semester:
+        print("Le semestre n'est pas celui renseigné")
+    print('test')
     channel = bot.get_channel(899980108985688065)
     guild = channel.guild
     
     ''' Archive previous categories'''
-    # WIP
+    # tronc commun 
+
+    # options
+
+    # parcours
+
+    # anglais
 
     ''' Create new categories with subjects and permissions '''
-    # WIP
+    # tronc commun 
 
-    await bot.close()
+    # options
+
+    # parcours
+
+    # anglais
+
+''' Tests '''
 
 bot.run(TOKEN)
-
-
-
-
-''' transform subject list into correct groups to build categories '''
-#code
-
-''' Create channels for each subject in categories with semester number '''
-#code
-
-''' Archive 'troncs communs', 'groupes', 'options' categories '''
-# by hand for now
-
-
-# bot.run(TOKEN)
