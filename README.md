@@ -12,8 +12,7 @@ Bot Discord du serveur PEIP Polytech Paris-Saclay, pour avertir de :
 ---
 
 Les fichiers `oasis.py`, `tesla.py` et `bus.py` définissent respectivement les fonctions :
-- `getGrades()`
-- `getSubjects()`
+- `getGrades()`, `getSubjects()`
 - `getInternships()`, `getInternshipInfos()`
 - `getNextBusses()`
 
