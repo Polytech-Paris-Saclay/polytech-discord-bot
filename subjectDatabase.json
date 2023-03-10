@@ -6,18 +6,46 @@
             "Microcontroleurs",
             "Ondes m\u00e9caniques",
             "Electromagn\u00e9tisme",
-            "Chimie de l\u2019\u00e9tat solide"
+            "Chimie de l\u2019\u00e9tat solide",
+            "Communication efficace"
         ],
         "options": [
-            "Cin\u00e9tique chimique exp\u00e9rimentale",
-            "Cartable num\u00e9rique",
-            "Introduction \u00e0 la biom\u00e9canique",
-            "Outils et indicateurs environnementaux",
-            "Introduction aux syst\u00e8mes dynamiques et \u00e0 leur commande",
-            "Mod\u00e9lisation de rev\u00eatements anti-reflets",
-            "D\u00e9veloppement mobile / Android",
-            "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
-            "Sports PeiP (avec le SUAPS) - option de dernier recours"
+            [
+                "Cin\u00e9tique chimique exp\u00e9rimentale",
+                "🧪"
+            ],
+            [
+                "Cartable num\u00e9rique",
+                "🎒"
+            ],
+            [
+                "Introduction \u00e0 la biom\u00e9canique",
+                "🧬"
+            ],
+            [
+                "Outils et indicateurs environnementaux",
+                "🌿"
+            ],
+            [
+                "Introduction aux syst\u00e8mes dynamiques et \u00e0 leur commande",
+                "🪫"
+            ],
+            [
+                "Mod\u00e9lisation de rev\u00eatements anti-reflets",
+                "🧱"
+            ],
+            [
+                "D\u00e9veloppement mobile / Android",
+                "📱"
+            ],
+            [
+                "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
+                "👅"
+            ],
+            [
+                "Sports PeiP (avec le SUAPS) - option de dernier recours",
+                "🏃‍♂️"
+            ]
         ],
         "parcours": [
             "Physique",
@@ -33,11 +61,26 @@
             "Thermodynamique physique"
         ],
         "options": [
-            "Cryptographie",
-            "Electronique et syst\u00e8mes robotis\u00e9s",
-            "Conception 3D",
-            "Intro au Web",
-            "Photonique et syst\u00e8mes optroniques"
+            [
+                "Cryptographie",
+                ""
+            ],
+            [
+                "Electronique et syst\u00e8mes robotis\u00e9s",
+                ""
+            ],
+            [
+                "Conception 3D",
+                ""
+            ],
+            [
+                "Intro au Web",
+                ""
+            ],
+            [
+                "Photonique et syst\u00e8mes optroniques",
+                ""
+            ]
         ],
         "parcours": [
             "Physique",
