@@ -22,7 +22,7 @@ TOKEN = os.environ['TOKEN']
 
 year, first_semester, second_semester, subjects_first_semester, subjects_second_semester = getSubjects()
 # semester_index = int(input('Numéro du semestre à update :'))
-with open('subjectDatabase.json','r') as f:
+with open('subjectDatabase.json','r',encoding="utf-8") as f:
     subjectDatabase = json.load(f)
 
 ''' Variables '''
@@ -44,16 +44,41 @@ async def updateS3(ctx):
     for role in guild.roles:
         if 'S2' in role.name:
             await role.delete()
+
     ''' Create new roles '''
     for groupe_anglais in groupes_anglais:
         await guild.create_role(name=f'Anglais groupe {groupe_anglais} - S3')
     for groupe in range(1, nbr_groupes+1):
         await guild.create_role(name=f'Groupe {groupe} - S3')
-    for option in subjectDatabase['S3']['option']:
-        await guild.create_role(name=f'{option} - S3')
-    ''' Update channel "groupe et option peip2" '''
+    for option in subjectDatabase['S3']['options']:
+        await guild.create_role(name=f'{option[0]} - S3')
 
-    ''' Archive previous categories (into '═ [Archives S2 - previous year] ═') and remove permissions '''
+    ''' Update channel "groupe et option peip2" '''
+    channel = find(lambda c: c.name == "groupe et option peip2", guild.channels)
+    await channel.purge()
+
+    embed = discord.Embed(
+        title="① Choisissez votre groupe de TD pour le S3",
+        color=0x029DE4
+    )
+    await channel.send(embed=embed)
+    desc= "```"
+    for option in subjectDatabase['S3']['options']:
+        desc += f'{option[1]} - {option[0]}\n'
+    desc += "```"
+    embed = discord.Embed(
+        title="② Choisissez votre option pour le S3",
+        description= desc,
+        color=0x029DE4
+    )
+    await channel.send(embed=embed)
+    embed = discord.Embed(
+        title="③ Choisissez votre groupe d'anglais",
+        color=0x029DE4
+    )
+    await channel.send(embed=embed)
+
+    ''' Archive previous categories (into '═ [Archives S2 - previous year] ═') and give permissions '''
     archive_category = await guild.create_category(name=f'═ [Archives S2 - {int(year[0])-1}/{int(year[1])-1}] ═')
     categories_to_archive = [
         '═══ Tronc commun - S2 ═══',
@@ -90,20 +115,17 @@ async def updateS3(ctx):
     category = await guild.create_category(name='══════ Option - S3 ══════', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
     for subject in options:
-        channel = await category.create_text_channel(name=f'{subject}')
-        await channel.set_permissions(find(lambda r: r.name == f'{subject} - S3', guild.roles), read_messages=True)
+        channel = await category.create_text_channel(name=f'{subject[0]}')
+        await channel.set_permissions(find(lambda r: r.name == f'{subject[0]} - S3', guild.roles), read_messages=True)
     # parcours
     parcours = subjectDatabase['S3']['parcours']
     category = await guild.create_category(name='════ Parcours - S3 ════', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
-    # NEEDS FIX
     for subject in parcours:
         channel = await category.create_text_channel(name=f'{subject}')
-        for i in range(1,parcours_groupes+1):
-            if subject == parcours_groupes[i]:
-                await channel.set_permissions(find(lambda r: r.name == f'Groupe {i} - S3', guild.roles), read_messages=True)
-
-        
+        for i in range(1,len(parcours_groupes)+1):
+            if subject == parcours_groupes[i-1]:
+                await channel.set_permissions(find(lambda r: r.name == f'Groupe {i} - S3', guild.roles), read_messages=True)    
     # anglais
     category = await guild.create_category(name='════ anglais - peip2 ═════', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
@@ -113,22 +135,17 @@ async def updateS3(ctx):
     
 
 
+''' Tests '''
 @bot.command(name='test')
 async def test(ctx):
     channelinit = bot.get_channel(899980108985688065)
     guild = channelinit.guild
     print('test')
-    parcours = subjectDatabase['S3']['parcours']
-    category = {}
-    for subject in parcours:
-        category[parcours] = []
-        for i in range(1,parcours_groupes+1):
-            if subject == parcours_groupes[i]:
-                category[parcours].append(f'Groupe {i} - S3')
+
+    
     
 
 
 
-''' Tests '''
 
 bot.run(TOKEN)
