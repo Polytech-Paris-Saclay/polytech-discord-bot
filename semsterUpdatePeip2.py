@@ -56,7 +56,6 @@ async def updateS3(ctx):
     ''' Update channel "groupe et option peip2" '''
     channel = find(lambda c: c.name == "groupe et option peip2", guild.channels)
     await channel.purge()
-
     embed = discord.Embed(
         title="① Choisissez votre groupe de TD pour le S3",
         color=0x029DE4
