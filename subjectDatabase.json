@@ -1,5 +1,9 @@
 {
     "S3": {
+        "year": [
+            "2022",
+            "2023"
+        ],
         "tronc_commun": [
             "Math\u00e9matiques 3",
             "Informatique 3",
@@ -54,6 +58,10 @@
         ]
     },
     "S4": {
+        "year": [
+            "2022",
+            "2023"
+        ],
         "tronc_commun": [
             "Math\u00e9matiques 4",
             "Bases de donn\u00e9es",
@@ -63,23 +71,23 @@
         "options": [
             [
                 "Cryptographie",
-                ""
+                "🔢"
             ],
             [
                 "Electronique et syst\u00e8mes robotis\u00e9s",
-                ""
+                "🤖"
             ],
             [
                 "Conception 3D",
-                ""
+                "📐"
             ],
             [
                 "Intro au Web",
-                ""
+                "🌐"
             ],
             [
                 "Photonique et syst\u00e8mes optroniques",
-                ""
+                "📸"
             ]
         ],
         "parcours": [
