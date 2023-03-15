@@ -55,6 +55,7 @@ async def updateS3(ctx):
 
     ''' Update channel "groupe et option peip2" '''
     channel = find(lambda c: c.name == "groupe et option peip2", guild.channels)
+    await channel.set_permissions(role_peip2, read_messages=False)
     await channel.purge()
     embed = discord.Embed(
         title="① Choisissez votre groupe de TD pour le S3",
@@ -76,6 +77,8 @@ async def updateS3(ctx):
         color=0x029DE4
     )
     await channel.send(embed=embed)
+    reaction_role_setup = input("Type 'y' when setup reaction role done")
+    await channel.set_permissions(role_peip2, read_messages=True)
 
     ''' Archive previous categories (into '═ [Archives S2 - previous year] ═') and give permissions '''
     archive_category = await guild.create_category(name=f'═ [Archives S2 - {int(year[0])-1}/{int(year[1])-1}] ═')
@@ -87,13 +90,17 @@ async def updateS3(ctx):
         '═══ Groupe TD/TP - S2 ════'
     ]
     for category_name in categories_to_archive:
-        this_category = discord.utils.get(guild.categories, name=category_name)
+        this_category = None
+        for category in guild.categories:
+            if category.name == category_name:
+                this_category = category
         for channel in this_category.channels:
             if channel.last_message_id is not None:
                 await channel.edit(category=archive_category)
                 await channel.set_permissions(guild.default_role, read_messages=True)
             else :
                 await channel.delete()
+        await this_category.delete()
 
     ''' Create new categories with subjects channels and permissions '''
     # tronc commun 
@@ -152,7 +159,9 @@ async def updateS4(ctx):
         await guild.create_role(name=f'{option[0]} - S4', colour=discord.Colour.yellow())
 
     ''' Update channel "groupe et option peip2" '''
-    channel = find(lambda c: c.name == "groupe et option peip2", guild.channels)
+    channel = find(lambda c: c.name == "groupe-et-option-peip2", guild.channels)
+    print(channel.name)
+    await channel.set_permissions(role_peip2, read_messages=False)
     await channel.purge()
     embed = discord.Embed(
         title="① Choisissez votre groupe de TD pour le S4",
@@ -174,6 +183,8 @@ async def updateS4(ctx):
         color=0x029DE4
     )
     await channel.send(embed=embed)
+    reaction_role_setup = input("Type 'y' when setup reaction role done")
+    await channel.set_permissions(role_peip2, read_messages=True)
 
     ''' Archive previous categories (into '═ [Archives S3 - this year] ═') and give permissions '''
     archive_category = await guild.create_category(name=f'═ [Archives S3 - {int(year[0])}/{int(year[1])}] ═')
@@ -183,13 +194,17 @@ async def updateS4(ctx):
         '═══ Groupe TD/TP - S3 ════'
     ]
     for category_name in categories_to_archive:
-        this_category = discord.utils.get(guild.categories, name=category_name)
+        this_category = None
+        for category in guild.categories:
+            if category.name == category_name:
+                this_category = category
         for channel in this_category.channels:
             if channel.last_message_id is not None:
                 await channel.edit(category=archive_category)
                 await channel.set_permissions(guild.default_role, read_messages=True)
             else :
                 await channel.delete()
+        await this_category.delete()
 
     ''' Create new categories with subjects channels and permissions '''
     # tronc commun 
