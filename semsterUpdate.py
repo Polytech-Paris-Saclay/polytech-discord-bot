@@ -43,11 +43,11 @@ async def updateS3(ctx):
     year_name = 'peip2'
     previous_year = 'peip1'
 
+    role_year = find(lambda r: r.name == 'PeiP 2', guild.roles)
     channelinit = bot.get_channel(899980108985688065)
     guild = channelinit.guild
     previous_semester = 'S'+str(int(semester[1])-1)
     year = subjectDatabase[semester]['year']
-    role_year = find(lambda r: r.name == 'PeiP 2', guild.roles)
 
     ''' Delete previous roles '''
     for role in guild.roles:
