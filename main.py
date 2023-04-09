@@ -64,7 +64,7 @@ async def tesla():
         print(infosListing['title'])
 
 
-@tasks.loop(hours=3)
+@tasks.loop(minutes=5)
 async def grades():
     grades = getGrades()
 
