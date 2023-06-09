@@ -201,6 +201,10 @@ async def bot_presence():
     elif text[0] == "Écoute":
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=text[1]))
 
+@bot.command(name='botmessage')
+async def annonce(ctx, channel: discord.TextChannel, *, message: str):
+    print(message)
+    await channel.send(message)
 
 @bot.event
 async def on_ready():
