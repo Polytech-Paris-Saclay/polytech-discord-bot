@@ -7,6 +7,8 @@ from datetime import datetime, timedelta, timezone
 import ics
 from markdownify import markdownify
 from dotenv import load_dotenv
+from PIL import Image
+from io import BytesIO
 import os
 import requests
 import random
@@ -205,6 +207,36 @@ async def bot_presence():
 async def annonce(ctx, channel: discord.TextChannel, *, message: str):
     print(message)
     await channel.send(message)
+
+@bot.command(name='wip')
+async def wip(ctx):
+    guild = ctx.guild
+    server_name = guild.name
+    new_name = '🚧 - '+server_name 
+    await guild.edit(name=new_name)
+    icon_url = guild.icon.url
+    response = requests.get(icon_url)
+    img = Image.open(BytesIO(response.content))
+    file_path = os.path.join(os.path.dirname(__file__), 'original_icon.png')
+    img.save(file_path, 'PNG')
+    overlay = Image.open('wip.png')
+    img.paste(overlay, (0, 0), overlay)
+    file_path = os.path.join(os.path.dirname(__file__), 'new_icon.png')
+    img.save(file_path, 'PNG')
+    with open(file_path, 'rb') as f:
+        await guild.edit(icon=f.read())
+    os.remove(os.path.join(os.path.dirname(__file__), 'new_icon.png'))
+
+@bot.command(name='default')
+async def default(ctx):
+    guild = ctx.guild
+    server_name = guild.name
+    new_name = server_name[4:]
+    await guild.edit(name=new_name)
+    file_path = os.path.join(os.path.dirname(__file__), 'original_icon.png')
+    with open(file_path, 'rb') as f:
+        await guild.edit(icon=f.read())
+    os.remove(os.path.join(os.path.dirname(__file__), 'original_icon.png'))
 
 @bot.event
 async def on_ready():
