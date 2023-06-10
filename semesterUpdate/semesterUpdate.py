@@ -47,7 +47,7 @@ async def semesterUpdate(ctx, semester: str):
     role_year = find(lambda r: r.name == role_discord_year, guild.roles)
     year = subjectDatabase[semester]['year']
     previous_year = semesterUpdateInstructions[year_name]['previous_year']
-    previous_semester = 'S'+str(int(semester[1])-1)
+    previous_semester = 'S'+ str(int(semester[1:])-1) if semester[1:] != '10' else 'S9'
 
     nbr_groupes = semesterUpdateInstructions[year_name]['nbr_groupes']
     parcours_groupes = semesterUpdateInstructions[year_name]['parcours_groupes']
