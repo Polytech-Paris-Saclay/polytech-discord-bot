@@ -87,3 +87,43 @@ async def createCategoryAnglais(guild, groupes_anglais, semester, year_name):
     for groupe in groupes_anglais:
         channel = await category.create_text_channel(name=f'groupe {groupe}')
         await channel.set_permissions(find(lambda r: r.name == f'Anglais groupe {groupe} - {semester}', guild.roles), read_messages=True)
+
+async def deletePreviousRoles(guild, previous_semester):
+    for role in guild.roles:
+        if previous_semester in role.name:
+            await role.delete()
+
+async def createNewRoles(guild, semester, roles, nbr_groupes, groupes_anglais, subjectDatabase): 
+    for role in roles:
+        if role == 'anglais':
+            for groupe in groupes_anglais:
+                await createRoleGroupeAnglais(guild, groupe, semester)
+        elif role == 'TDTP':
+            for groupe in range(1, nbr_groupes+1):
+                await createRoleGroupeTDTP(guild, groupe, semester)
+        elif role == 'options':
+            for option in subjectDatabase[semester]['options']:
+                await createRoleOption(guild, option, semester)
+
+async def archivePreviousCategories(guild, previous_semester, year, previous_year, categories_to_archive):
+    archive_category = await guild.create_category(name=f'═ [Archives {previous_semester} - {int(year[0])-1}/{int(year[1])-1}] ═')
+    discord_categories_to_archive = [
+        f'═══ Tronc commun - {previous_semester} ═══' if category_name == 'tronc_commun' else
+        f'══════ Option - {previous_semester} ══════' if category_name == 'options' else
+        f'════ Parcours - {previous_year} ════' if category_name == 'parcours' else
+        f'════ anglais - {previous_year} ═════' if category_name == 'anglais' else
+        f'═══ Groupe TD/TP - {previous_semester} ════' if category_name == 'TDTP' else
+        None
+        for category_name in categories_to_archive
+    ]
+    for category in discord_categories_to_archive:
+        await archiveThisCategory(guild, category, archive_category)
+
+async def createNewCategories(guild, semester, categories, role_year, nbr_groupes, parcours_groupes, groupes_anglais, year_name, subjectDatabase):
+    for category in categories:
+        match category:
+            case "tronc_commun" : await createCategoryTroncCommun(guild, subjectDatabase[semester]['tronc_commun'], semester, role_year)
+            case "TDTP" : await createCategoryGroupeTDTP(guild, nbr_groupes, semester)
+            case "options" : await createCategoryOptions(guild, subjectDatabase[semester]['options'], semester)
+            case "parcours" : await createCategoryParcours(guild, subjectDatabase[semester]['parcours'], parcours_groupes, semester, year_name)
+            case "anglais" : await createCategoryAnglais(guild, groupes_anglais, semester, year_name)

@@ -1,0 +1,23 @@
+{
+    "peip2" : {
+        "nbr_groupes" : 4,
+        "parcours_groupes" : ["Physique","Chimie","Numérique","Numérique"],
+        "groupes_anglais" : ["A", "B", "C", "D", "E", "F", "G", "H"],
+        "previous_year" : "peip1",
+        "role_discord_year" : "PeiP 2",
+        "S3" : {
+            "delete_previous_roles" : true,
+            "create_new_roles" : ["anglais","TDTP","options"],
+            "update_groupeEtOption_channel" : true,
+            "archive_previous_categories" : ["tronc_commun","options","parcours","anglais","TDTP"],
+            "create_new_categories" : ["tronc_commun","TDTP","options","parcours","anglais"]
+        },
+        "S4" : {
+            "delete_previous_roles" : true,
+            "create_new_roles" : ["anglais","TDTP","options"],
+            "update_groupeEtOption_channel" : true,
+            "archive_previous_categories" : ["tronc_commun","options","TDTP"],
+            "create_new_categories" : ["tronc_commun","TDTP","options"]
+        }
+    }
+}
