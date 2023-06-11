@@ -106,7 +106,10 @@ async def createNewRoles(guild, semester, roles, nbr_groupes, groupes_anglais, s
                 await createRoleOption(guild, option, semester)
 
 async def archivePreviousCategories(guild, previous_semester, year, previous_year, categories_to_archive):
-    archive_category = await guild.create_category(name=f'═ [Archives {previous_semester} - {int(year[0])-1}/{int(year[1])-1}] ═')
+    archive_category_name = f'═ [Archives {previous_semester} - {int(year[0])-1}/{int(year[1])-1}] ═'
+    archive_category = find(lambda c: c.name == archive_category_name, guild.categories)
+    if archive_category is None:
+        archive_category = await guild.create_category(name=archive_category_name)
     discord_categories_to_archive = [
         f'═══ Tronc commun - {previous_semester} ═══' if category_name == 'tronc_commun' else
         f'══════ Option - {previous_semester} ══════' if category_name == 'options' else
