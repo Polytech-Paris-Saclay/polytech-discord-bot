@@ -1,10 +1,7 @@
 import json
 from oasis import getSubjects
 
-def formCategoriesPeip1(subjects_first_semester, subjects_second_semester):
-    pass
-
-def formCategoriesPeip2(subjects_first_semester, subjects_second_semester):
+def formCategories(subjects_first_semester, subjects_second_semester):
     '''first_semester'''
     # tronc commun : UE 2 et 3 + UE1 except anglais
     tronc_commun = []
@@ -66,7 +63,4 @@ if well_extracted == 'n':
     exit()
 
 ''' Write them in the database '''
-if(first_semester == 1):
-    formCategoriesPeip1(subjects_first_semester, subjects_second_semester)
-if(first_semester == 3):
-    formCategoriesPeip2(subjects_first_semester, subjects_second_semester)
+formCategories(subjects_first_semester, subjects_second_semester)
