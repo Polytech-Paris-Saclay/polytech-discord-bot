@@ -13,12 +13,9 @@ import os
 from lxml import etree
 import json
 
-from ..oasis import getSubjects
 from semesterUpdateFunctions import *
 
 load_dotenv()
-LOGIN = os.environ['LOGIN']
-PASSWORD = os.environ['PASSWORD']
 TOKEN = os.environ['TOKEN']
 
 ''' Load subjectDatabase '''

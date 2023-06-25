@@ -5,7 +5,7 @@ from getSubjectsWithHTML import getSubjectsFromHTML
 def formCategories(first_semester, second_semester, subjects_first_semester, subjects_second_semester):
     '''first_semester'''
     first_semester_name = 'S' + str(first_semester)
-    # tronc commun : UE 2 et 3 + UE1 except anglais
+    # tronc commun : UE 2, 3 + UE1 except anglais
     tronc_commun = []
     tronc_commun.extend(subjects_first_semester[2])
     tronc_commun.extend(subjects_first_semester[1])
@@ -24,7 +24,7 @@ def formCategories(first_semester, second_semester, subjects_first_semester, sub
     }
     '''second_semester'''
     second_semester_name = 'S' + str(second_semester)
-    # tronc commun : UE 2 et 3 + UE1 except anglais
+    # tronc commun : UE 2, 3 + UE1 except anglais
     tronc_commun = []
     tronc_commun.extend(subjects_second_semester[2])
     tronc_commun.extend(subjects_second_semester[1])

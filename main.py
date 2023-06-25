@@ -19,7 +19,6 @@ from bus import getNextBuses, stations
 
 
 load_dotenv()
-# TOKEN = os.getenv('TOKEN')
 TOKEN = os.environ['TOKEN']
 AGENDA_URL = os.environ['AGENDA_URL']
 

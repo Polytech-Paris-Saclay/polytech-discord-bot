@@ -1,4 +1,61 @@
 {
+    "S1": {
+        "tronc_commun": [
+            "Remise \u00e0 niveau en math\u00e9matiques",
+            "Math\u00e9matiques 1",
+            "Informatique 1",
+            "Calcul scientifique - Python",
+            "Remise \u00e0 niveau en physique",
+            "M\u00e9canique 1",
+            "Lumi\u00e8re, images et couleurs",
+            "Architecture de la mati\u00e8re 1"
+        ],
+        "options": [
+            "Initiation aux mat\u00e9riaux",
+            "Robot",
+            "Smartphonique",
+            "Web",
+            "Logic problem solving",
+            "Business Game",
+            "Du capteur \u00e0 la d\u00e9cision",
+            "LV2",
+            "Sport"
+        ],
+        "parcours": [
+        ]
+    },
+    "S2": {
+        "tronc_commun": [
+            "Math\u00e9matiques 2",
+            "Informatique 2",
+            "Electronique num\u00e9rique",
+            "M\u00e9canique 2",
+            "Electrocin\u00e9tique",
+            "Thermochimie"
+        ],
+        "options": [
+            "Forces fondamentales",
+            "Mat\u00e9riaux pour l'\u00e9nergie",
+            "Initiation aux mat\u00e9riaux",
+            "Robot",
+            "Smartphonique",
+            "Web",
+            "IOT et objets connect\u00e9s",
+            "Logic problem solving",
+            "Radioactivit\u00e9, Noyaux et Applications",
+            "S\u00e9lection des mat\u00e9riaux",
+            "Du capteur \u00e0 la d\u00e9cision",
+            "D\u00e9bat scientifique",
+            "Programmation syst\u00e8me sous Linux",
+            "LV2",
+            "Sport"
+        ],
+        "parcours": [
+            "Physique",
+            "Chimie",
+            "Num\u00e9rique"
+        ]
+    },
     "S3": {
         "year": [
             "2022",
@@ -16,39 +73,39 @@
         "options": [
             [
                 "Cin\u00e9tique chimique exp\u00e9rimentale",
-                "🧪"
+                "\ud83e\uddea"
             ],
             [
                 "Cartable num\u00e9rique",
-                "🎒"
+                "\ud83c\udf92"
             ],
             [
                 "Introduction \u00e0 la biom\u00e9canique",
-                "🧬"
+                "\ud83e\uddec"
             ],
             [
                 "Outils et indicateurs environnementaux",
-                "🌿"
+                "\ud83c\udf3f"
             ],
             [
                 "Introduction aux syst\u00e8mes dynamiques et \u00e0 leur commande",
-                "🪫"
+                "\ud83e\udeab"
             ],
             [
                 "Mod\u00e9lisation de rev\u00eatements anti-reflets",
-                "🧱"
+                "\ud83e\uddf1"
             ],
             [
                 "D\u00e9veloppement mobile / Android",
-                "📱"
+                "\ud83d\udcf1"
             ],
             [
                 "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
-                "👅"
+                "\ud83d\udc45"
             ],
             [
                 "Sports PeiP (avec le SUAPS) - option de dernier recours",
-                "🏃‍♂️"
+                "\ud83c\udfc3\u200d\u2642\ufe0f"
             ]
         ],
         "parcours": [
@@ -71,23 +128,23 @@
         "options": [
             [
                 "Cryptographie",
-                "🔢"
+                "\ud83d\udd22"
             ],
             [
                 "Electronique et syst\u00e8mes robotis\u00e9s",
-                "🤖"
+                "\ud83e\udd16"
             ],
             [
                 "Conception 3D",
-                "📐"
+                "\ud83d\udcd0"
             ],
             [
                 "Intro au Web",
-                "🌐"
+                "\ud83c\udf10"
             ],
             [
                 "Photonique et syst\u00e8mes optroniques",
-                "📸"
+                "\ud83d\udcf8"
             ]
         ],
         "parcours": [
