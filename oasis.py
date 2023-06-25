@@ -95,8 +95,6 @@ def getSubjects():
             for i in range(len(ue)):
                 ue[i] = ue[i].text.strip()
 
-        
-
         subjects_first_semester = []
 
         index_next_semester = 0
@@ -111,8 +109,6 @@ def getSubjects():
             if index_next_semester != 0:
                 break
             subjects_first_semester.append(temp)
-
-
 
         subjects_second_semester = []
 

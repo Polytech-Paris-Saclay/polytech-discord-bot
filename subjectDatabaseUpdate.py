@@ -2,7 +2,7 @@ import json
 from oasis import getSubjects
 from getSubjectsWithHTML import getSubjectsFromHTML
 
-def formCategories(first_semester, second_semester, subjects_first_semester, subjects_second_semester):
+def formCategories(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester):
     '''first_semester'''
     first_semester_name = 'S' + str(first_semester)
     # tronc commun : UE 2, 3 + UE1 except anglais
@@ -10,14 +10,16 @@ def formCategories(first_semester, second_semester, subjects_first_semester, sub
     tronc_commun.extend(subjects_first_semester[2])
     tronc_commun.extend(subjects_first_semester[1])
     tronc_commun.extend(subjects_first_semester[0][1:]) if len(subjects_first_semester[0][1:]) > 1 else None 
-    # options : UE 4 except 3 last subjects
+    # options : UE 4 except 3 last subjects, and add a blank space for the associated emoji
     options = []
-    options.extend(subjects_first_semester[3][:-3])
+    for option in subjects_first_semester[3][:-3]:
+        options.append([option, ''])
     # parcours : last 3 subjects of UE 4
     parcours = []
     parcours.extend(subjects_first_semester[3][-3:])
     
     globals()[first_semester_name] = {
+        'year': year,
         'tronc_commun': tronc_commun,
         'options': options,
         'parcours': parcours
@@ -28,14 +30,16 @@ def formCategories(first_semester, second_semester, subjects_first_semester, sub
     tronc_commun = []
     tronc_commun.extend(subjects_second_semester[2])
     tronc_commun.extend(subjects_second_semester[1])
-    tronc_commun.extend(subjects_first_semester[0][1:]) if len(subjects_first_semester[0][1:]) > 1 else None
-    # options : UE 4 except 3 last subjects
+    tronc_commun.extend(subjects_second_semester[0][1:]) if len(subjects_second_semester[0][1:]) > 1 else None
+    # options : UE 4 except 3 last subjects, and add a blank space for the associated emoji
     options = []
-    options.extend(subjects_second_semester[3][:-3])
+    for option in subjects_second_semester[3][:-3]:
+        options.append([option, ''])
     # parcours : last 3 subjects of UE 4
     parcours = []
-    parcours.extend(subjects_first_semester[3][-3:])
+    parcours.extend(subjects_second_semester[3][-3:])
     globals()[second_semester_name] = {
+        'year': year,
         'tronc_commun': tronc_commun,
         'options': options,
         'parcours': parcours
@@ -51,7 +55,7 @@ def formCategories(first_semester, second_semester, subjects_first_semester, sub
 ''' Check in console if the subjects are well extracted, and then write them in the database '''
 year, first_semester, second_semester, subjects_first_semester, subjects_second_semester = getSubjectsFromHTML('mychoices.html')
 
-print('Année :',year,'\n\n')
+print('\nAnnée :',year,'\n\n')
 print('Semestre :',first_semester,'\n')
 for i in range(len(subjects_first_semester)):
     print('UE',i+1,':',subjects_first_semester[i])
@@ -65,4 +69,4 @@ if well_extracted == 'n':
     exit()
 
 ''' Write them in the database '''
-formCategories(first_semester, second_semester, subjects_first_semester, subjects_second_semester)
+formCategories(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester)

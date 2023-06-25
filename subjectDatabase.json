@@ -1,5 +1,9 @@
 {
     "S1": {
+        "year": [
+            "2022",
+            "2023"
+        ],
         "tronc_commun": [
             "Remise \u00e0 niveau en math\u00e9matiques",
             "Math\u00e9matiques 1",
@@ -11,20 +15,42 @@
             "Architecture de la mati\u00e8re 1"
         ],
         "options": [
-            "Initiation aux mat\u00e9riaux",
-            "Robot",
-            "Smartphonique",
-            "Web",
-            "Logic problem solving",
-            "Business Game",
-            "Du capteur \u00e0 la d\u00e9cision",
-            "LV2",
-            "Sport"
+            [
+                "Initiation aux mat\u00e9riaux",
+                ""
+            ],
+            [
+                "Robot",
+                ""
+            ],
+            [
+                "Smartphonique",
+                ""
+            ],
+            [
+                "Web",
+                ""
+            ],
+            [
+                "Logic problem solving",
+                ""
+            ],
+            [
+                "Business Game",
+                ""
+            ]
         ],
         "parcours": [
+            "Du capteur \u00e0 la d\u00e9cision",
+            "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
+            "Sports PeiP (avec le SUAPS) - option de dernier recours"
         ]
     },
     "S2": {
+        "year": [
+            "2022",
+            "2023"
+        ],
         "tronc_commun": [
             "Math\u00e9matiques 2",
             "Informatique 2",
@@ -34,21 +60,66 @@
             "Thermochimie"
         ],
         "options": [
-            "Forces fondamentales",
-            "Mat\u00e9riaux pour l'\u00e9nergie",
-            "Initiation aux mat\u00e9riaux",
-            "Robot",
-            "Smartphonique",
-            "Web",
-            "IOT et objets connect\u00e9s",
-            "Logic problem solving",
-            "Radioactivit\u00e9, Noyaux et Applications",
-            "S\u00e9lection des mat\u00e9riaux",
-            "Du capteur \u00e0 la d\u00e9cision",
-            "D\u00e9bat scientifique",
-            "Programmation syst\u00e8me sous Linux",
-            "LV2",
-            "Sport"
+            [
+                "Forces fondamentales",
+                "🔧"
+            ],
+            [
+                "Mat\u00e9riaux pour l'\u00e9nergie",
+                "⚡️"
+            ],
+            [
+                "Initiation aux mat\u00e9riaux",
+                "🧱"
+            ],
+            [
+                "Robot",
+                "🤖"
+            ],
+            [
+                "Smartphonique",
+                "📱"
+            ],
+            [
+                "Web",
+                "🌐"
+            ],
+            [
+                "IOT et objets connect\u00e9s",
+                "📡"
+            ],
+            [
+                "Logic problem solving",
+                "🎛️"
+            ],
+            [
+                "Radioactivit\u00e9, Noyaux et Applications",
+                "☢️"
+            ],
+            [
+                "S\u00e9lection des mat\u00e9riaux",
+                "🔬"
+            ],
+            [
+                "Du capteur \u00e0 la d\u00e9cision",
+                "📊"
+            ],
+            [
+                "D\u00e9bat scientifique",
+                "🗣️"
+            ],
+            [
+                "Programmation syst\u00e8me sous Linux",
+                "🐧"
+            ],
+            [
+                "LV2",
+                "💬"
+            ],
+            [
+                "Sport",
+                "🏋️"
+            ]
         ],
         "parcours": [
             "Physique",

@@ -43,13 +43,14 @@ async def archiveThisCategory(guild, category_name, archive_category):
         if category.name == category_name:
             this_category = category
             break
-    for channel in this_category.channels:
-        if channel.last_message_id is not None:
-            await channel.edit(category=archive_category)
-            await channel.set_permissions(guild.default_role, read_messages=True)
-        else :
-            await channel.delete()
-    await this_category.delete()
+    if this_category is not None:
+        for channel in this_category.channels:
+            if channel.last_message_id is not None:
+                await channel.edit(category=archive_category)
+                await channel.set_permissions(guild.default_role, read_messages=True)
+            else :
+                await channel.delete()
+        await this_category.delete()
 
 async def createCategoryTroncCommun(guild, tronc_commun, semester, role_year):
     category = await guild.create_category(name=f'═══ Tronc commun - {semester} ═══', position=4)
@@ -62,15 +63,23 @@ async def createCategoryGroupeTDTP(guild, nbr_groupes, semester):
     category = await guild.create_category(name=f'═══ Groupe TD/TP - {semester} ════', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
     for i in range(1, nbr_groupes+1):
-        channel = await category.create_text_channel(name=f'groupe {i}')
-        await channel.set_permissions(find(lambda r: r.name == f'Groupe {i} - {semester}', guild.roles), read_messages=True)
+        role = discord.utils.get(guild.roles, name=f'Groupe {i} - {semester}')
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            role: discord.PermissionOverwrite(read_messages=True)
+        }
+        await category.create_text_channel(name=f'groupe {i}', overwrites=overwrites)
 
 async def createCategoryOptions(guild, options, semester):
     category = await guild.create_category(name=f'══════ Option - {semester} ══════', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
     for subject in options:
-        channel = await category.create_text_channel(name=f'{subject[0]}')
-        await channel.set_permissions(find(lambda r: r.name == f'{subject[0]} - {semester}', guild.roles), read_messages=True)
+        role = discord.utils.get(guild.roles, name=f'{subject[0]} - {semester}')
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            role: discord.PermissionOverwrite(read_messages=True)
+        }
+        await category.create_text_channel(name=f'{subject[0]}', overwrites=overwrites)
 
 async def createCategoryParcours(guild, parcours, parcours_groupes_peip2, semester, year_name):
     category = await guild.create_category(name=f'════ parcours - {year_name} ════', position=4)
@@ -85,8 +94,12 @@ async def createCategoryAnglais(guild, groupes_anglais, semester, year_name):
     category = await guild.create_category(name=f'════ anglais - {year_name} ═════', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
     for groupe in groupes_anglais:
-        channel = await category.create_text_channel(name=f'groupe {groupe}')
-        await channel.set_permissions(find(lambda r: r.name == f'Anglais groupe {groupe} - {semester}', guild.roles), read_messages=True)
+        role = discord.utils.get(guild.roles, name=f'Anglais groupe {groupe} - {semester}')
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            role: discord.PermissionOverwrite(read_messages=True)
+        }
+        await category.create_text_channel(name=f'groupe {groupe}', overwrites=overwrites)
 
 async def deletePreviousRoles(guild, previous_semester):
     for role in guild.roles:
@@ -106,10 +119,13 @@ async def createNewRoles(guild, semester, roles, nbr_groupes, groupes_anglais, s
                 await createRoleOption(guild, option, semester)
 
 async def archivePreviousCategories(guild, previous_semester, year, previous_year, categories_to_archive):
-    archive_category_name = f'═ [Archives {previous_semester} - {int(year[0])-1}/{int(year[1])-1}] ═'
+    #if previous semester number is not pair, year is the same, else year is the previous year
+    year = year if int(previous_semester[1]) % 2 != 0 else [int(year[0])-1, int(year[1])-1]
+    archive_category_name = f'═ [Archives {previous_semester} - {int(year[0])}/{int(year[1])}] ═'
     archive_category = find(lambda c: c.name == archive_category_name, guild.categories)
     if archive_category is None:
         archive_category = await guild.create_category(name=archive_category_name)
+        await archive_category.set_permissions(find(lambda r: r.name == f'Accès aux archives', guild.roles), read_messages=True)
     discord_categories_to_archive = [
         f'═══ Tronc commun - {previous_semester} ═══' if category_name == 'tronc_commun' else
         f'══════ Option - {previous_semester} ══════' if category_name == 'options' else

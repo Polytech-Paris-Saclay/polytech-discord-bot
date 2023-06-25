@@ -14,10 +14,10 @@
         },
         "S2" : {
             "delete_previous_roles" : true,
-            // "create_new_roles" : ["anglais","TDTP","options"],
-            // "update_groupeEtOption_channel" : true,
-            // "archive_previous_categories" : ["tronc_commun","options","anglais","TDTP"],
-            // "create_new_categories" : ["tronc_commun","TDTP","options","parcours","anglais"]
+            "create_new_roles" : ["anglais","TDTP","options"],
+            "update_groupeEtOption_channel" : true,
+            "archive_previous_categories" : ["tronc_commun","options","anglais","TDTP"],
+            "create_new_categories" : ["tronc_commun","TDTP","options","parcours","anglais"]
         }
     },
     "peip2" : {

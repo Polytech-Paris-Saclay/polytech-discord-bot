@@ -19,10 +19,11 @@ load_dotenv()
 TOKEN = os.environ['TOKEN']
 
 ''' Load subjectDatabase '''
-with open('../subjectDatabase.json','r',encoding="utf-8") as f:
+with open('subjectDatabase.json','r',encoding="utf-8") as f:
     subjectDatabase = json.load(f)
 
 ''' Load semesterUpdateInstructions '''
+os.chdir('semesterUpdate')
 with open('semesterUpdateInstructions.json','r',encoding="utf-8") as f:
     semesterUpdateInstructions = json.load(f)
 
@@ -50,12 +51,31 @@ async def semesterUpdate(ctx, semester: str):
     parcours_groupes = semesterUpdateInstructions[year_name]['parcours_groupes']
     groupes_anglais = semesterUpdateInstructions[year_name]['groupes_anglais']
 
-    for instruction_name, instructions in semesterUpdateInstructions[semester]:
+    print(semesterUpdateInstructions[year_name][semester])
+
+    for instruction_name, instructions in semesterUpdateInstructions[year_name][semester].items():
         match instruction_name:
             case "delete_previous_roles": await deletePreviousRoles(guild, previous_semester) if instructions else None
             case "create_new_roles": await createNewRoles(guild, semester, instructions, nbr_groupes, groupes_anglais, subjectDatabase)
             case "update_groupeEtOption_channel" : await updateGroupeEtOptionChannel(guild, semester, year_name, role_year, subjectDatabase) if instructions else None
             case "archive_previous_categories" : await archivePreviousCategories(guild, previous_semester, year, previous_year, instructions)
             case "create_new_categories" : await createNewCategories(guild, semester, instructions, role_year, nbr_groupes, parcours_groupes, groupes_anglais, year_name, subjectDatabase)
+
+@bot.command(name='tempdelete')
+async def default(ctx):
+    guild = ctx.guild
+    categories = [
+        find(lambda c: c.name == '═══ Groupe TD/TP - S2 ════', guild.categories),
+        find(lambda c: c.name == '══════ Option - S2 ══════', guild.categories),
+        find(lambda c: c.name == '═══ Tronc commun - S2 ═══', guild.categories),
+        find(lambda c: c.name == '════ parcours - peip1 ════', guild.categories),
+        find(lambda c: c.name == '════ anglais - peip1 ═════', guild.categories)
+    ]
+    for category in categories:
+        # delete every channel in the category
+        for channel in category.channels:
+            await channel.delete()
+        # delete the category
+        await category.delete()
 
 bot.run(TOKEN)
