@@ -47,7 +47,8 @@ async def archiveThisCategory(guild, category_name, archive_category):
         for channel in this_category.channels:
             if channel.last_message_id is not None:
                 await channel.edit(category=archive_category)
-                await channel.set_permissions(guild.default_role, read_messages=True)
+                await channel.set_permissions(guild.default_role, read_messages=False)
+                await channel.set_permissions(find(lambda r: r.name == f'Accès aux archives', guild.roles), read_messages=True)
             else :
                 await channel.delete()
         await this_category.delete()
@@ -125,6 +126,7 @@ async def archivePreviousCategories(guild, previous_semester, year, previous_yea
     archive_category = find(lambda c: c.name == archive_category_name, guild.categories)
     if archive_category is None:
         archive_category = await guild.create_category(name=archive_category_name)
+        await archive_category.set_permissions(guild.default_role, read_messages=False)
         await archive_category.set_permissions(find(lambda r: r.name == f'Accès aux archives', guild.roles), read_messages=True)
     discord_categories_to_archive = [
         f'═══ Tronc commun - {previous_semester} ═══' if category_name == 'tronc_commun' else
