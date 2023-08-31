@@ -204,11 +204,13 @@ async def bot_presence():
 
 @bot.command(name='botmessage')
 async def annonce(ctx, channel: discord.TextChannel, *, message: str):
+    ''' !botmessage <channel> <message> '''
     print(message)
     await channel.send(message)
 
 @bot.command(name='wip')
 async def wip(ctx):
+    ''' Sets 🚧 before the server name and on the server icon '''
     guild = ctx.guild
     server_name = guild.name
     new_name = '🚧 - '+server_name 
@@ -228,6 +230,7 @@ async def wip(ctx):
 
 @bot.command(name='default')
 async def default(ctx):
+    ''' Removes 🚧 before the server name and on the server icon '''
     guild = ctx.guild
     server_name = guild.name
     new_name = server_name[4:]
