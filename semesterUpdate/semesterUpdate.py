@@ -32,6 +32,8 @@ intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.command(name='update')
+# !update <semester>
+# uses semesters instructions in semesterUpdateInstructions
 async def semesterUpdate(ctx, semester: str):
     channelinit = bot.get_channel(899980108985688065)
     guild = channelinit.guild
@@ -47,9 +49,10 @@ async def semesterUpdate(ctx, semester: str):
     previous_year = semesterUpdateInstructions[year_name]['previous_year']
     previous_semester = 'S'+ str(int(semester[1:])-1) if semester[1:] != '10' else 'S9'
 
-    nbr_groupes = semesterUpdateInstructions[year_name]['nbr_groupes']
-    parcours_groupes = semesterUpdateInstructions[year_name]['parcours_groupes']
-    groupes_anglais = semesterUpdateInstructions[year_name]['groupes_anglais']
+    nbr_groupes = semesterUpdateInstructions[year_name]['nbr_groupes'] if 'nbr_groupes' in semesterUpdateInstructions[year_name] else None
+    parcours_groupes = semesterUpdateInstructions[year_name]['parcours_groupes'] if 'parcours_groupes' in semesterUpdateInstructions[year_name] else None
+    groupes_anglais = semesterUpdateInstructions[year_name]['groupes_anglais'] if 'groupes_anglais' in semesterUpdateInstructions[year_name] else None
+    
 
     print(semesterUpdateInstructions[year_name][semester])
 
@@ -62,6 +65,7 @@ async def semesterUpdate(ctx, semester: str):
             case "create_new_categories" : await createNewCategories(guild, semester, instructions, role_year, nbr_groupes, parcours_groupes, groupes_anglais, year_name, subjectDatabase)
 
 @bot.command(name='tempdelete')
+# debug command
 async def default(ctx):
     guild = ctx.guild
     categories = [
