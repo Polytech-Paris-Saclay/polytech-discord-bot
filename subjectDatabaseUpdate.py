@@ -1,20 +1,19 @@
 import json
-from oasis import getSubjects
 from getSubjectsWithHTML import getSubjectsFromHTML
 
-def formCategories(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester):
+def formCategoriesPEIP(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester):
     '''first_semester'''
     first_semester_name = 'S' + str(first_semester)
-    # tronc commun : UE 2, 3 + UE1 except anglais
+    # tronc commun : UE 1, 2 + UE0 except anglais
     tronc_commun = []
     tronc_commun.extend(subjects_first_semester[2])
     tronc_commun.extend(subjects_first_semester[1])
     tronc_commun.extend(subjects_first_semester[0][1:]) if len(subjects_first_semester[0][1:]) > 1 else None 
-    # options : UE 4 except 3 last subjects, and add a blank space for the associated emoji
+    # options : UE 3 except 3 last subjects, and add a blank space for the associated emoji
     options = []
     for option in subjects_first_semester[3][:-3]:
         options.append([option, ''])
-    # parcours : last 3 subjects of UE 4
+    # parcours : last 3 subjects of UE 3
     parcours = []
     parcours.extend(subjects_first_semester[3][-3:])
     
@@ -26,16 +25,16 @@ def formCategories(year, first_semester, second_semester, subjects_first_semeste
     }
     '''second_semester'''
     second_semester_name = 'S' + str(second_semester)
-    # tronc commun : UE 2, 3 + UE1 except anglais
+    # tronc commun : UE 1, 2 + UE0 except anglais
     tronc_commun = []
     tronc_commun.extend(subjects_second_semester[2])
     tronc_commun.extend(subjects_second_semester[1])
     tronc_commun.extend(subjects_second_semester[0][1:]) if len(subjects_second_semester[0][1:]) > 1 else None
-    # options : UE 4 except 3 last subjects, and add a blank space for the associated emoji
+    # options : UE 3 except 3 last subjects, and add a blank space for the associated emoji
     options = []
     for option in subjects_second_semester[3][:-3]:
         options.append([option, ''])
-    # parcours : last 3 subjects of UE 4
+    # parcours : last 3 subjects of UE 3
     parcours = []
     parcours.extend(subjects_second_semester[3][-3:])
     globals()[second_semester_name] = {
@@ -52,10 +51,50 @@ def formCategories(year, first_semester, second_semester, subjects_first_semeste
     with open('subjectDatabase.json','w', encoding='utf-8') as f:
         json.dump(data,f)
 
+# WIP
+def formCategoriesET3(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester):
+    pass
+
+# WIP
+def formCategoriesAPP3(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester):
+    '''first_semester'''
+    first_semester_name = 'S' + str(first_semester)
+    # tronc commun app : UE0 3rd subject + UE1 + UE2 +UE3
+    tronc_commun_app = []
+    tronc_commun_app.extend(subjects_first_semester[1])
+    tronc_commun_app.extend(subjects_first_semester[2])
+    tronc_commun_app.extend(subjects_first_semester[3])
+    tronc_commun_app.append(subjects_first_semester[0][2])
+    # specialite_app : UE,4,5,6,7
+    specialite_app = []
+    specialite_app.extend(subjects_first_semester[4])
+    specialite_app.extend(subjects_first_semester[5])
+    specialite_app.extend(subjects_first_semester[6])
+    specialite_app.extend(subjects_first_semester[7])
+    
+    globals()[first_semester_name+'_app'] = {
+        'year': year,
+        'tronc_commun_app': tronc_commun_app,
+        'specialite_app': specialite_app
+    }
+    
+    ''' Save '''
+    with open('subjectDatabase.json','r', encoding='utf-8') as f:
+        data = json.load(f)
+    data[first_semester_name+'_app'] = globals()[first_semester_name+'_app']
+    with open('subjectDatabase.json','w', encoding='utf-8') as f:
+        json.dump(data,f)
+
+
+
+
+
+
 ''' Check in console if the subjects are well extracted, and then write them in the database '''
-year, first_semester, second_semester, subjects_first_semester, subjects_second_semester = getSubjectsFromHTML('mychoices.html')
+year, first_semester, second_semester, subjects_first_semester, subjects_second_semester, specialite = getSubjectsFromHTML('APP3_INFO_23-24.html')
 
 print('\nAnnée :',year,'\n\n')
+print('Spécialité :',specialite,'\n\n')
 print('Semestre :',first_semester,'\n')
 for i in range(len(subjects_first_semester)):
     print('UE',i+1,':',subjects_first_semester[i])
@@ -69,4 +108,5 @@ if well_extracted == 'n':
     exit()
 
 ''' Write them in the database '''
-formCategories(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester)
+# formCategoriesPEIP(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester)
+formCategoriesAPP3(year, first_semester, second_semester, subjects_first_semester, subjects_second_semester)

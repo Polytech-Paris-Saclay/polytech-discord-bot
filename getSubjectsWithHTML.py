@@ -11,6 +11,9 @@ def getSubjectsFromHTML(filename):
     
     first_semester = int(header_year_info[header_year_info.index('semestre') - 1][0])
     second_semester = int(header_year_info[header_year_info.index('semestre') - 1][0]) + 1
+    
+    specialite = header_year_info[4].split('-')[1]
+    specialite = 'PSO' if specialite == 'PHOT' else None
 
     list_UE = [
         ue_html.find_all('td')
@@ -20,7 +23,7 @@ def getSubjectsFromHTML(filename):
     # formatting
     for ue in list_UE:
         for i in range(len(ue)):
-            ue[i] = ue[i].text.strip().encode('cp1252').decode('utf8')
+            ue[i] = ue[i].text.strip().encode('cp1252').decode('utf8')     
 
     subjects_first_semester = []
 
@@ -46,4 +49,7 @@ def getSubjectsFromHTML(filename):
                 temp.append(list_UE[i][j-3])
         subjects_second_semester.append(temp)
 
-    return year, first_semester, second_semester, subjects_first_semester, subjects_second_semester
+    return year, first_semester, second_semester, subjects_first_semester, subjects_second_semester, specialite
+
+year, first_semester, second_semester, subjects_first_semester, subjects_second_semester, specialite = getSubjectsFromHTML('ET3_PSO_23-24.html')
+print(year, specialite, first_semester, second_semester, subjects_first_semester, subjects_second_semester)

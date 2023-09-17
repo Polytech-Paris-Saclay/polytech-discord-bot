@@ -131,7 +131,7 @@ async def archivePreviousCategories(guild, previous_semester, year, previous_yea
     discord_categories_to_archive = [
         f'═══ Tronc commun - {previous_semester} ═══' if category_name == 'tronc_commun' else
         f'══════ Option - {previous_semester} ══════' if category_name == 'options' else
-        f'════ Parcours - {previous_year} ════' if category_name == 'parcours' else
+        f'════ parcours - {previous_year} ════' if category_name == 'parcours' else
         f'════ anglais - {previous_year} ═════' if category_name == 'anglais' else
         f'═══ Groupe TD/TP - {previous_semester} ════' if category_name == 'TDTP' else
         None

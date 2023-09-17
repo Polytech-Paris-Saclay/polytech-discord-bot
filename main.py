@@ -14,9 +14,8 @@ import requests
 import random
 
 from oasis import getGrades
-from tesla import getInternships, getInternshipInfos
+# from tesla import getInternships, getInternshipInfos
 from bus import getNextBuses, stations
-
 
 load_dotenv()
 TOKEN = os.environ['TOKEN']
@@ -25,7 +24,7 @@ AGENDA_URL = os.environ['AGENDA_URL']
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-@tasks.loop(minutes=30)
+# @tasks.loop(minutes=30)
 async def tesla():
     internships = getInternships()
 
@@ -244,7 +243,7 @@ async def default(ctx):
 async def on_ready():
     print('Le bot est prêt !')
     bot_presence.start()
-    tesla.start()
+    # tesla.start()
     grades.start()
     # nextBuses.start()
 
