@@ -1,9 +1,9 @@
 {
     "peip1" : {
         "nbr_groupes" : 5,
-        "parcours_groupes" : [],
+        "parcours_groupes" : ["Physique","Physique","Chimie","Numérique","Numérique"],
         "groupes_anglais" : ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
-        "previous_year" : "",
+        "previous_year" : "peip1",
         "role_discord_year" : "PeiP 1",
         "S1" : {
             "delete_previous_roles" : false,
@@ -17,7 +17,7 @@
             "create_new_roles" : ["anglais","TDTP","options"],
             "update_groupeEtOption_channel" : true,
             "archive_previous_categories" : ["tronc_commun","options","anglais","TDTP"],
-            "create_new_categories" : ["tronc_commun","TDTP","options","parcours","anglais"]
+            "create_new_categories" : ["tronc_commun","TDTP","anglais","options","parcours"]
         }
     },
     "peip2" : {
@@ -39,6 +39,27 @@
             "update_groupeEtOption_channel" : true,
             "archive_previous_categories" : ["tronc_commun","options","TDTP"],
             "create_new_categories" : ["tronc_commun","TDTP","options"]
+        }
+    },
+    "3rd_year" : {
+        "previous_year" : "peip2",
+        "role_discord_year" : "3ème Année",
+        "specialites" : ["MTX","PSO","ESR","INFO"],
+        "groupes_tc_app" : ["A","B","C"],
+        "nbr_groupes_anglais_com_app" : 4, 
+        "S5" : {
+        },
+        "S5_temp" : {
+            "create_new_roles" : ["tronc_commun_APP","anglais_com_APP","specialite_APP"],
+            "delete_previous_roles" : true,
+            "archive_previous_categories" : ["tronc_commun","options","parcours","anglais","TDTP"],
+            "create_new_categories" : ["groupe_tc_APP","tronc_commun_APP","anglais_com_APP","specialite_APP"]
+        },
+        "S6" : {
+
+        },
+        "S6_temp" : {
+            
         }
     }
 }

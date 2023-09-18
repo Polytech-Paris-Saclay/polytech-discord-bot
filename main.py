@@ -70,7 +70,7 @@ async def grades():
 
     ### Polytech
     guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
-    channel = find(lambda c: 'nouvelles-notes' in c.name, guild.text_channels)
+    channel = guild.get_channel(933462967536730193)
     
     ### New Grades
     previousGrades = [
