@@ -48,18 +48,13 @@
         "groupes_tc_app" : ["A","B","C"],
         "nbr_groupes_anglais_com_app" : 4, 
         "S5" : {
-        },
-        "S5_temp" : {
-            "create_new_roles" : ["tronc_commun_APP","anglais_com_APP","specialite_APP"],
             "delete_previous_roles" : true,
             "archive_previous_categories" : ["tronc_commun","options","parcours","anglais","TDTP"],
+            "create_new_roles" : ["tronc_commun_APP","anglais_com_APP","specialite_APP","specialite_ET"],
             "create_new_categories" : ["groupe_tc_APP","tronc_commun_APP","anglais_com_APP","specialite_APP"]
         },
         "S6" : {
 
-        },
-        "S6_temp" : {
-            
         }
     }
 }

@@ -63,7 +63,7 @@ async def semesterUpdate(ctx, semester: str):
         print('done.')
     
     print('Update successfully completed.')
-
+#print('ok boy') 
 # debug command
 @bot.command(name='tempdelete')
 async def default(ctx):

@@ -23,6 +23,9 @@ async def createRoleGroupeAnglaisComAPP(guild, year_name, groupe):
 async def createRoleSpecialiteAPP(guild, year_name, specialite):
     await guild.create_role(name=f'{specialite} - APP{year_name[0]}', colour=discord.Colour(0x001368))
 
+async def createRoleSpecialiteET(guild, year_name, specialite):
+    await guild.create_role(name=f'{specialite} - ET{year_name[0]}', colour=discord.Colour(0x001368))
+
 
 # ------------------ #
 
@@ -124,18 +127,18 @@ async def createCategoryAnglais(guild, groupes_anglais, semester, year_name):
 
 # 3eme année - 5eme année
 
-async def createCategoryTroncCommunAPP(guild, tronc_commun_APP, year_name):
+async def createCategoryTroncCommunAPP(guild, tronc_commun_APP, year_name, groupes_tc_app):
     category = await guild.create_category(name=f'══ Tronc commun - APP{year_name[0]} ══', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
-    for groupe in tronc_commun_APP:
-        await category.set_permissions(groupe, read_messages=True)
+    for groupe in groupes_tc_app:
+        await category.set_permissions(find(lambda r: r.name == f'Groupe TC {groupe} - APP{year_name[0]}', guild.roles), read_messages=True)
     for subject in tronc_commun_APP:
         await category.create_text_channel(name=f'{subject}')
 
-async def createCategoryAnglaisComAPP(guild, anglais_com_APP, year_name):
+async def createCategoryAnglaisComAPP(guild, nbr_gr_anglais_com_APP, year_name):
     category = await guild.create_category(name=f'═══ Anglais com - APP{year_name[0]} ═══', position=4)
     await category.set_permissions(guild.default_role, read_messages=False)
-    for groupe in anglais_com_APP:
+    for groupe in range(1, nbr_gr_anglais_com_APP+1):
         role = discord.utils.get(guild.roles, name=f'Groupe AnCom {groupe} - APP{year_name[0]}')
         overwrites = {
             guild.default_role: discord.PermissionOverwrite(read_messages=False),
@@ -149,8 +152,7 @@ async def createCategoryGroupeTroncCommunAPP(guild, groupes_tc_app, year_name):
     await category.set_permissions(guild.default_role, read_messages=False)
     for groupe in groupes_tc_app:
         channel = await category.create_text_channel(name=f'Groupe {groupe}')
-        for groupe in groupes_tc_app:
-            await channel.set_permissions(find(lambda r: r.name == f'Groupe TC {groupe} - APP{year_name[0]}', guild.roles), read_messages=True)
+        await channel.set_permissions(find(lambda r: r.name == f'Groupe TC {groupe} - APP{year_name[0]}', guild.roles), read_messages=True)
 
 async def createCategorySpecialiteAPP(guild, year_name, specialites, subjects):
     category = await guild.create_category(name=f'══════ Spe - APP{year_name[0]} ═══════', position=4)
@@ -200,6 +202,9 @@ async def createNewRoles(guild, semester, year_name, roles, subjectDatabase, sem
             case 'specialite_APP' : 
                 for specialite in specialites:
                     await createRoleSpecialiteAPP(guild, year_name, specialite)
+            case 'specialite_ET' :
+                for specialite in specialites:
+                    await createRoleSpecialiteET(guild, year_name, specialite)
 
 
 
@@ -241,7 +246,7 @@ async def createNewCategories(guild, semester, categories, role_year, semesterUp
             case "options" : await createCategoryOptions(guild, subjectDatabase[semester]['options'], semester)
             case "parcours" : await createCategoryParcours(guild, subjectDatabase[semester]['parcours'], parcours_groupes, semester, year_name)
             case "anglais" : await createCategoryAnglais(guild, groupes_anglais, semester, year_name)
-            case "tronc_commun_APP" : createCategoryTroncCommunAPP(guild, subjectDatabase[semester]['tronc_commun_APP'], year_name, groupes_tc_app)
-            case "anglais_com_APP" : createCategoryAnglaisComAPP(guild, nbr_groupes_anglais_com_app , year_name)
-            case "specialite_APP" : createCategorySpecialiteAPP(guild, year_name, specialites, subjectDatabase[semester])
-            case "groupe_tc_APP" : createCategoryGroupeTroncCommunAPP(guild, groupes_tc_app, year_name)
+            case "tronc_commun_APP" : await createCategoryTroncCommunAPP(guild, subjectDatabase[semester]['tronc_commun_app'], year_name, groupes_tc_app)
+            case "anglais_com_APP" : await createCategoryAnglaisComAPP(guild, nbr_groupes_anglais_com_app , year_name)
+            case "specialite_APP" : await createCategorySpecialiteAPP(guild, year_name, specialites, subjectDatabase[semester])
+            case "groupe_tc_APP" : await createCategoryGroupeTroncCommunAPP(guild, groupes_tc_app, year_name)
