@@ -63,7 +63,30 @@ async def semesterUpdate(ctx, semester: str):
         print('done.')
     
     print('Update successfully completed.')
-#print('ok boy') 
+
+# debug command
+@bot.command(name='updateverifchannel')
+async def embed(ctx, semester: str):
+    year = subjectDatabase[semester]['year']
+    embed = discord.Embed(
+        title = f"Je suis étudiant.e à Polytech Paris-Saclay pour l'année {year[0]}-{year[1]}",
+        description= '''
+            Cliquez sur :one: si vous êtes en PeiP 1 
+            Cliquez sur :two: si vous êtes en PeiP 2 
+            Cliquez sur :regional_indicator_c: si vous êtes en PeiP C
+            Cliquez sur :three: si vous êtes en 3ème année
+            Cliquez sur :four: si vous êtes en 4ème année
+            Cliquez sur :five: si vous êtes en 5ème année
+            Sinon, cliquez sur 👋 pour avoir le rôle "Visiteur"
+        ''',
+        color=0x029DE4
+    )
+    channelinit = bot.get_channel(899980108985688065)
+    guild = channelinit.guild
+    channel = find(lambda c: c.name == f'vérification', guild.channels)
+    await channel.send(embed=embed)
+    print('message sent')
+
 # debug command
 @bot.command(name='tempdelete')
 async def default(ctx):
@@ -81,5 +104,18 @@ async def default(ctx):
             await channel.delete()
         # delete the category
         await category.delete()
+
+#debug command
+#delete every channel and the category in which they are if there is 'S5' in the name of the category
+@bot.command(name='deleteS5')
+async def default(ctx):
+    guild = ctx.guild
+    for category in guild.categories:
+        if 'S5' in category.name:
+            print(category.name)
+            for channel in category.channels:
+                await channel.delete()
+            await category.delete()
+            print('deleted')
 
 bot.run(TOKEN)

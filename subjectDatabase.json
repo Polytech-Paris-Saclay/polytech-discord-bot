@@ -1,8 +1,8 @@
 {
     "S1": {
         "year": [
-            "2022",
-            "2023"
+            "2023",
+            "2024"
         ],
         "tronc_commun": [
             "Remise \u00e0 niveau en math\u00e9matiques",
@@ -14,42 +14,13 @@
             "Lumi\u00e8re, images et couleurs",
             "Architecture de la mati\u00e8re 1"
         ],
-        "options": [
-            [
-                "Initiation aux mat\u00e9riaux",
-                ""
-            ],
-            [
-                "Robot",
-                ""
-            ],
-            [
-                "Smartphonique",
-                ""
-            ],
-            [
-                "Web",
-                ""
-            ],
-            [
-                "Logic problem solving",
-                ""
-            ],
-            [
-                "Business Game",
-                ""
-            ]
-        ],
-        "parcours": [
-            "Du capteur \u00e0 la d\u00e9cision",
-            "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
-            "Sports PeiP (avec le SUAPS) - option de dernier recours"
-        ]
+        "options": [],
+        "parcours": []
     },
     "S2": {
         "year": [
-            "2022",
-            "2023"
+            "2023",
+            "2024"
         ],
         "tronc_commun": [
             "Math\u00e9matiques 2",
@@ -61,76 +32,80 @@
         ],
         "options": [
             [
+                "Business Game",
+                ""
+            ],
+            [
                 "Forces fondamentales",
-                "🔧"
+                ""
             ],
             [
                 "Mat\u00e9riaux pour l'\u00e9nergie",
-                "⚡️"
+                ""
             ],
             [
                 "Initiation aux mat\u00e9riaux",
-                "🧱"
+                ""
             ],
             [
                 "Robot",
-                "🤖"
+                ""
             ],
             [
                 "Smartphonique",
-                "📱"
+                ""
             ],
             [
                 "Web",
-                "🌐"
+                ""
             ],
             [
                 "IOT et objets connect\u00e9s",
-                "📡"
+                ""
             ],
             [
                 "Logic problem solving",
-                "🎛️"
+                ""
             ],
             [
                 "Radioactivit\u00e9, Noyaux et Applications",
-                "☢️"
+                ""
             ],
             [
                 "S\u00e9lection des mat\u00e9riaux",
-                "🔬"
+                ""
             ],
             [
                 "Du capteur \u00e0 la d\u00e9cision",
-                "📊"
+                ""
             ],
             [
                 "D\u00e9bat scientifique",
-                "🗣️"
+                ""
             ],
             [
                 "Programmation syst\u00e8me sous Linux",
-                "🐧"
+                ""
             ],
             [
-                "LV2",
-                "💬"
+                "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
+                ""
             ],
             [
-                "Sport",
-                "🏋️"
+                "Sports PeiP (avec le SUAPS) - option de dernier recours",
+                ""
             ]
         ],
         "parcours": [
-            "Physique",
-            "Chimie",
-            "Num\u00e9rique"
+            "Parcours Physique",
+            "Parcours Chimie",
+            "Parcours Num\u00e9rique"
         ]
     },
     "S3": {
         "year": [
-            "2022",
-            "2023"
+            "2023",
+            "2024"
         ],
         "tronc_commun": [
             "Math\u00e9matiques 3",
@@ -138,8 +113,7 @@
             "Microcontroleurs",
             "Ondes m\u00e9caniques",
             "Electromagn\u00e9tisme",
-            "Chimie de l\u2019\u00e9tat solide",
-            "Communication efficace"
+            "Chimie de l\u2019\u00e9tat solide"
         ],
         "options": [
             [
@@ -152,31 +126,31 @@
             ],
             [
                 "Introduction \u00e0 la biom\u00e9canique",
-                "\ud83e\uddec"
+                "\ud83e\uddb4"
             ],
             [
                 "Outils et indicateurs environnementaux",
-                "\ud83c\udf3f"
+                "\ud83c\udf0d"
             ],
             [
-                "Introduction aux syst\u00e8mes dynamiques et \u00e0 leur commande",
-                "\ud83e\udeab"
+                "Introduction aux syst\u00e8mes dynamiques",
+                "\ud83d\udd04"
             ],
             [
                 "Mod\u00e9lisation de rev\u00eatements anti-reflets",
-                "\ud83e\uddf1"
+                "\ud83d\udd76\ufe0f"
             ],
             [
                 "D\u00e9veloppement mobile / Android",
                 "\ud83d\udcf1"
             ],
             [
-                "Option \"Langues\" pour les PeiP : Espagnol, Allemand, Italien,  Russe, Chinois, Japonais",
-                "\ud83d\udc45"
+                "Langues",
+                "\ud83d\udde3\ufe0f"
             ],
             [
-                "Sports PeiP (avec le SUAPS) - option de dernier recours",
-                "\ud83c\udfc3\u200d\u2642\ufe0f"
+                "Sport",
+                "\ud83c\udfcb\ufe0f"
             ]
         ],
         "parcours": [
@@ -187,8 +161,8 @@
     },
     "S4": {
         "year": [
-            "2022",
-            "2023"
+            "2023",
+            "2024"
         ],
         "tronc_commun": [
             "Math\u00e9matiques 4",
@@ -199,29 +173,157 @@
         "options": [
             [
                 "Cryptographie",
-                "\ud83d\udd22"
+                ""
             ],
             [
                 "Electronique et syst\u00e8mes robotis\u00e9s",
-                "\ud83e\udd16"
+                ""
             ],
             [
                 "Conception 3D",
-                "\ud83d\udcd0"
+                ""
             ],
             [
                 "Intro au Web",
-                "\ud83c\udf10"
+                ""
             ],
             [
                 "Photonique et syst\u00e8mes optroniques",
-                "\ud83d\udcf8"
+                ""
             ]
         ],
         "parcours": [
+            "Parcours Physique",
+            "Parcours Chimie",
+            "Parcours Num\u00e9rique"
+        ]
+    },
+    "S5": {
+        "year": [
+            "2023",
+            "2024"
+        ],
+        "tronc_commun_app": [
+            "Economie g\u00e9n\u00e9rale",
+            "\u00c9conomie d'entreprise",
+            "Droit social et des contrats",
+            "Analyse",
+            "Alg\u00e8bre",
+            "Probabilit\u00e9s et Statistiques",
+            "Projet transverse",
+            "Francais pour l'ing\u00e9nieur"
+        ],
+        "specialite_app_INFO": [
+            "Algorithmique",
+            "Algorithmique des Graphes",
+            "Base du D\u00e9veloppement Logiciel",
+            "Programmation objet (Java)",
+            "Programmation Web",
+            "UML",
+            "Bases de donn\u00e9es",
+            "Calcul scientifique",
+            "Syst\u00e8me",
+            "Architecture"
+        ],
+        "specialite_app_PSO": [
+            "Optique geometrique",
+            "Optique ondulatoire",
+            "Electromagn\u00e9tisme",
+            "Traitement du signal",
+            "Langages",
+            "Electronique analogique",
+            "Systemes numeriques"
+        ],
+        "specialite_app_ESR": [
+            "Conversion d\u2019energie",
+            "Composants de l\u2019electronique",
+            "Electronique numerique",
+            "Fonctions de l\u2019electronique",
+            "Outils pour le traitement du signal",
+            "Automatique",
+            "Informatique industrielle",
+            "Algorithmique et programmation",
+            "CAO/DAO Robotique",
+            "Projet robotique"
+        ],
+        "specialite_app_MTX": [
+            "Mathematiques",
             "Physique",
             "Chimie",
-            "Num\u00e9rique"
+            "Informatique",
+            "Structure cristalline",
+            "Structure electronique",
+            "Diagramme des phases",
+            "CAO (Catia)",
+            "Mecanique statique",
+            "Mecanique experimentale",
+            "Elasticite",
+            "RDM"
+        ],
+        "specialite_et_PSO": [
+            "Bases d'electronique",
+            "Optique geometrique",
+            "Informatique et algorithmique"
+        ],
+        "specialite_et_INFO": [
+            "Algorithmique",
+            "Informatique théorique",
+            "Bases du développement logiciel",
+            "Bases de données",
+            "Réseaux"
+        ],
+        "specialite_et_ESR": [
+            "Composants de l'électronique",
+            "Électronique numérique",
+            "Programmation en langage C",
+            "Outils pour le traitement du signal"
+        ],
+        "specialite_et_MTX":[
+            "Physique quantique",
+            "Informatique - Pyhton",
+            "Thermodynamique des matériaux",
+            "Liaison chimique dans les matériaux",
+            "Mécanique statique",
+            "Conception assistée par ordinateur",
+            "Mécanique des fluides"
+
+        ]
+    },
+    "S6": {
+        "year": [
+            "2023",
+            "2024"
+        ],
+        "specialite_et_PSO": [
+            "Optique ondulatoire",
+            "Analyse de Fourier en physique",
+            "Electronique analogique",
+            "Electronique num\u00e9rique"
+        ],
+        "specialite_et_INFO": [
+            "Algorithmique des graphes",
+            "Concepts objet et Java",
+            "UML",
+            "Interaction Humain-Machine",
+            "Systèmes d'exploitation",
+            "Informatique graphique"
+        ],
+        "specialite_et_ESR": [
+            "Fonctions de l'électronique",
+            "Automatique",
+            "Capteurs et acquisitions",
+            "Conversion d'énergie",
+            "Informatique industrielle",
+            "Intégration mécatronique"
+        ],
+        "specialite_et_MTX": [
+            "Structure électronique de la matière",
+            "Structure de la matière",
+            "Structure des polymères",
+            "Informatique pour les matériaux",
+            "Elasticité",
+            "Résistance des matériaux",
+            "Mécanique expérimentale"
         ]
     }
 }

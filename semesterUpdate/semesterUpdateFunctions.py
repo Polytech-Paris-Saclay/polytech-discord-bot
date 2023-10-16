@@ -3,6 +3,8 @@ from discord.utils import find
 
 # ------------------ #
 
+# sorry for bad implementation
+
 # Peip1 - Peip2
 async def createRoleGroupeAnglais(guild, groupe_anglais, semester):
     await guild.create_role(name=f'Anglais groupe {groupe_anglais} - {semester}', colour=discord.Colour(0x269407))
@@ -26,6 +28,20 @@ async def createRoleSpecialiteAPP(guild, year_name, specialite):
 async def createRoleSpecialiteET(guild, year_name, specialite):
     await guild.create_role(name=f'{specialite} - ET{year_name[0]}', colour=discord.Colour(0x001368))
 
+async def createRoleGroupeTroncCommunET(guild, semester, groupe):
+    await guild.create_role(name=f'Groupe TC {groupe} - {semester}', colour=discord.Colour.random())
+
+async def createRoleMathsPhysET(guild, semester, groupe):
+    await guild.create_role(name=f'Groupe MathsPhys {groupe} - {semester}', colour=discord.Colour.random())
+
+async def createRoleGroupeAnglaisET(guild, semester, groupe):
+    await guild.create_role(name=f'Groupe Anglais {groupe} - {semester}', colour=discord.Colour(0x269407))
+
+async def createRoleGroupeEconomieET(guild, semester, groupe):
+    await guild.create_role(name=f'Groupe Economie {groupe} - {semester}', colour=discord.Colour.random())
+
+async def createRoleGroupeCommunicationET(guild, semester, groupe):
+    await guild.create_role(name=f'Groupe Communication {groupe} - {semester}', colour=discord.Colour.random())
 
 # ------------------ #
 
@@ -163,7 +179,49 @@ async def createCategorySpecialiteAPP(guild, year_name, specialites, subjects):
             guild.default_role: discord.PermissionOverwrite(read_messages=False),
             role: discord.PermissionOverwrite(read_messages=True)
         }
+        # TODO : create channels for groups
         for subject in subjects[f"specialite_app_{specialite}"]:
+            await category.create_text_channel(name=f'{subject}', overwrites=overwrites)
+
+async def createCategoryMathsPhysET(guild, semester, nbr_groupes_maths_phys_ET):
+    category = await guild.create_category(name=f'═══ Maths Physique - {semester} ═══', position=4)
+    await category.set_permissions(guild.default_role, read_messages=False)
+    for groupe in range(1, nbr_groupes_maths_phys_ET+1):
+        channel = await category.create_text_channel(name=f'Groupe {groupe}')
+        await channel.set_permissions(find(lambda r: r.name == f'Groupe MathsPhys {groupe} - {semester}', guild.roles), read_messages=True)
+
+async def createCategoryAnglaisET(guild, semester, nbr_groupes_anglais_ET):
+    category = await guild.create_category(name=f'══════ Anglais - {semester} ══════', position=4)
+    await category.set_permissions(guild.default_role, read_messages=False)
+    for groupe in range(1, nbr_groupes_anglais_ET+1):
+        channel = await category.create_text_channel(name=f'Groupe {groupe}')
+        await channel.set_permissions(find(lambda r: r.name == f'Groupe Anglais {groupe} - {semester}', guild.roles), read_messages=True)
+
+async def createCategoryEcoET(guild, semester, nbr_groupe_eco_ET):
+    category = await guild.create_category(name=f'═════ Economie - {semester} ═════', position=4)
+    await category.set_permissions(guild.default_role, read_messages=False)
+    for groupe in range(1, nbr_groupe_eco_ET+1):
+        channel = await category.create_text_channel(name=f'Groupe {groupe}')
+        await channel.set_permissions(find(lambda r: r.name == f'Groupe Economie {groupe} - {semester}', guild.roles), read_messages=True)
+
+async def createCategoryComET(guild, semester, nbr_groupes_com_ET):
+    category = await guild.create_category(name=f'═══ Communication - {semester} ═══', position=4)
+    await category.set_permissions(guild.default_role, read_messages=False)
+    for groupe in range(1, nbr_groupes_com_ET+1):
+        channel = await category.create_text_channel(name=f'Groupe {groupe}')
+        await channel.set_permissions(find(lambda r: r.name == f'Groupe Communication {groupe} - {semester}', guild.roles), read_messages=True)
+
+async def createCategorySpecialiteET(guild, year_name, semester, specialites, subjects):
+    category = await guild.create_category(name=f'═══════ Spe - {semester} ═══════', position=4)
+    await category.set_permissions(guild.default_role, read_messages=False)
+    for specialite in specialites:
+        role = discord.utils.get(guild.roles, name=f'{specialite} - ET{year_name[0]}')
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            role: discord.PermissionOverwrite(read_messages=True)
+        }
+        await category.create_text_channel(name=f'groupe {specialite}', overwrites=overwrites)
+        for subject in subjects[f"specialite_et_{specialite}"]:
             await category.create_text_channel(name=f'{subject}', overwrites=overwrites)
 
 # ------------------ #
@@ -181,6 +239,10 @@ async def createNewRoles(guild, semester, year_name, roles, subjectDatabase, sem
     specialites = semesterUpdateInstructions[year_name]['specialites'] if 'specialites' in semesterUpdateInstructions[year_name] else None
     nbr_groupes_anglais_com_app = semesterUpdateInstructions[year_name]['nbr_groupes_anglais_com_app'] if 'nbr_groupes_anglais_com_app' in semesterUpdateInstructions[year_name] else None
     groupes_tc_app = semesterUpdateInstructions[year_name]['groupes_tc_app'] if 'groupes_tc_app' in semesterUpdateInstructions[year_name] else None
+    groupes_maths_phys_ET = semesterUpdateInstructions[year_name]['groupes_maths_phys_ET'] if 'groupes_maths_phys_ET' in semesterUpdateInstructions[year_name] else None
+    groupes_anglais_ET = semesterUpdateInstructions[year_name]['groupes_anglais_ET'] if 'groupes_anglais_ET' in semesterUpdateInstructions[year_name] else None
+    groupes_com_ET = semesterUpdateInstructions[year_name]['groupes_com_ET'] if 'groupes_com_ET' in semesterUpdateInstructions[year_name] else None
+    groupe_eco_ET = semesterUpdateInstructions[year_name]['groupe_eco_ET'] if 'groupe_eco_ET' in semesterUpdateInstructions[year_name] else None
 
     for role in roles:
         match role:
@@ -202,9 +264,22 @@ async def createNewRoles(guild, semester, year_name, roles, subjectDatabase, sem
             case 'specialite_APP' : 
                 for specialite in specialites:
                     await createRoleSpecialiteAPP(guild, year_name, specialite)
+            case 'maths_phys_ET' :
+                for groupe in range(1, groupes_maths_phys_ET+1):
+                    await createRoleMathsPhysET(guild, semester, groupe)
+            case 'anglais_ET' :
+                for groupe in range(1, groupes_anglais_ET+1):
+                    await createRoleGroupeAnglaisET(guild, semester, groupe) 
+            case 'eco_ET' : 
+                for groupe in range(1, groupe_eco_ET+1):
+                    await createRoleGroupeEconomieET(guild, semester, groupe)
+            case 'com_ET' :
+                for groupe in range(1, groupes_com_ET+1):
+                    await createRoleGroupeCommunicationET(guild, semester, groupe)
             case 'specialite_ET' :
                 for specialite in specialites:
                     await createRoleSpecialiteET(guild, year_name, specialite)
+            case _ : raise Exception(f'Role {role} not found')
 
 
 
@@ -237,6 +312,10 @@ async def createNewCategories(guild, semester, categories, role_year, semesterUp
     nbr_groupes_anglais_com_app = semesterUpdateInstructions[year_name]['nbr_groupes_anglais_com_app'] if 'nbr_groupes_anglais_com_app' in semesterUpdateInstructions[year_name] else None
     groupes_tc_app = semesterUpdateInstructions[year_name]['groupes_tc_app'] if 'groupes_tc_app' in semesterUpdateInstructions[year_name] else None
     specialites = semesterUpdateInstructions[year_name]['specialites'] if 'specialites' in semesterUpdateInstructions[year_name] else None
+    nbr_groupes_maths_phys_ET = semesterUpdateInstructions[year_name]['groupes_maths_phys_ET'] if 'groupes_maths_phys_ET' in semesterUpdateInstructions[year_name] else None
+    nbr_groupes_anglais_ET = semesterUpdateInstructions[year_name]['groupes_anglais_ET'] if 'groupes_anglais_ET' in semesterUpdateInstructions[year_name] else None
+    nbr_groupe_eco_ET = semesterUpdateInstructions[year_name]['groupe_eco_ET'] if 'groupe_eco_ET' in semesterUpdateInstructions[year_name] else None
+    nbr_groupes_com_ET = semesterUpdateInstructions[year_name]['groupes_com_ET'] if 'groupes_com_ET' in semesterUpdateInstructions[year_name] else None
 
 
     for category in categories:
@@ -250,3 +329,9 @@ async def createNewCategories(guild, semester, categories, role_year, semesterUp
             case "anglais_com_APP" : await createCategoryAnglaisComAPP(guild, nbr_groupes_anglais_com_app , year_name)
             case "specialite_APP" : await createCategorySpecialiteAPP(guild, year_name, specialites, subjectDatabase[semester])
             case "groupe_tc_APP" : await createCategoryGroupeTroncCommunAPP(guild, groupes_tc_app, year_name)
+            case "maths_phys_ET" : await createCategoryMathsPhysET(guild, semester, nbr_groupes_maths_phys_ET)
+            case "anglais_ET" : await createCategoryAnglaisET(guild, semester, nbr_groupes_anglais_ET)
+            case "eco_ET" : await createCategoryEcoET(guild, semester, nbr_groupe_eco_ET)
+            case "com_ET" : await createCategoryComET(guild, semester, nbr_groupes_com_ET)
+            case "specialite_ET" : await createCategorySpecialiteET(guild, year_name, semester, specialites, subjectDatabase[semester])
+            case _ : raise Exception(f'Category {category} not found')

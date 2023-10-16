@@ -2,15 +2,14 @@
     "peip1" : {
         "nbr_groupes" : 5,
         "parcours_groupes" : ["Physique","Physique","Chimie","Numérique","Numérique"],
-        "groupes_anglais" : ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
+        "groupes_anglais" : ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
         "previous_year" : "peip1",
         "role_discord_year" : "PeiP 1",
         "S1" : {
             "delete_previous_roles" : false,
-            "create_new_roles" : ["anglais","TDTP","options"],
+            "create_new_roles" : ["anglais","TDTP"],
             "update_groupeEtOption_channel" : true,
-            "archive_previous_categories" : ["tronc_commun","options","anglais","TDTP"],
-            "create_new_categories" : ["tronc_commun","TDTP","options","anglais"]
+            "create_new_categories" : ["tronc_commun","TDTP","anglais"]
         },
         "S2" : {
             "delete_previous_roles" : true,
@@ -18,6 +17,9 @@
             "update_groupeEtOption_channel" : true,
             "archive_previous_categories" : ["tronc_commun","options","anglais","TDTP"],
             "create_new_categories" : ["tronc_commun","TDTP","anglais","options","parcours"]
+        },
+        "S3_temp" : {
+            "archive_previous_categories" : ["tronc_commun","options","anglais","TDTP"]
         }
     },
     "peip2" : {
@@ -47,11 +49,21 @@
         "specialites" : ["MTX","PSO","ESR","INFO"],
         "groupes_tc_app" : ["A","B","C"],
         "nbr_groupes_anglais_com_app" : 4, 
+        "groupes_maths_phys_ET" : 5,
+        "groupes_anglais_ET" : 8,
+        "groupes_com_ET" : 8,
+        "groupe_eco_ET" : 3,
         "S5" : {
             "delete_previous_roles" : true,
             "archive_previous_categories" : ["tronc_commun","options","parcours","anglais","TDTP"],
-            "create_new_roles" : ["tronc_commun_APP","anglais_com_APP","specialite_APP","specialite_ET"],
-            "create_new_categories" : ["groupe_tc_APP","tronc_commun_APP","anglais_com_APP","specialite_APP"]
+            "create_new_roles" : [
+                "tronc_commun_APP","anglais_com_APP","specialite_APP",
+                "specialite_ET","maths_phys_ET","anglais_ET","eco_ET","com_ET"
+            ],
+            "create_new_categories" : [
+                "groupe_tc_APP","tronc_commun_APP","anglais_com_APP","specialite_APP",
+                "maths_phys_ET","anglais_ET","eco_ET","com_ET", "specialite_ET"
+            ]
         },
         "S6" : {
 
