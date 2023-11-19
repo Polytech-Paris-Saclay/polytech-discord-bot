@@ -29,7 +29,7 @@ async def tesla():
     internships = getInternships()
 
     ### Polytech
-    guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
+    guild = find(lambda g: 'Polytech Paris-Saclay' in g.name, bot.guilds)
     channel = find(lambda c: 'tesla' in c.name, guild.text_channels)
     
     previousListings = [
@@ -69,7 +69,7 @@ async def grades():
     grades = getGrades()
 
     ### Polytech
-    guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
+    guild = find(lambda g: 'Polytech Paris-Saclay' in g.name, bot.guilds)
     channel = guild.get_channel(933462967536730193)
     
     ### New Grades
@@ -146,7 +146,7 @@ async def nextBuses():
     lastClass = todayClasses[-1]
     
     ### Polytech
-    guild = find(lambda g: 'PEIP' in g.name, bot.guilds)
+    guild = find(lambda g: 'Polytech Paris-Saclay' in g.name, bot.guilds)
     channel = find(lambda c: 'prochains-bus' in c.name, guild.text_channels)
     
     embed = discord.Embed()
