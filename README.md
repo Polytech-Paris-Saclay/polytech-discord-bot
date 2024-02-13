@@ -37,4 +37,15 @@ AGENDA_URL = https://www.your-school.edu/agenda.ical
 
 ---
 
-### *Alexandre MALFREYT*
+### Contributeurs
+
+<table>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/54336210" width="75" height="75"></td>
+    <td>Alexandre MALFREYT (<a href="https://github.com/AlexZeGamer">AlexZeGamer</a>)</td>
+  </tr>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/103659071" width="75" height="75"></td>
+    <td>Florian MICELI (<a href="https://github.com/FlorianMiceli">FlorianMiceli</a>)</td>
+  </tr>
+</table>
